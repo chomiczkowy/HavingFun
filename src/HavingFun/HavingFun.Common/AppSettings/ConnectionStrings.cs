@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HavingFun.Web.MainSite.AppSettings
+namespace HavingFun.Common.AppSettings
 {
     public class ConnectionStrings
     {

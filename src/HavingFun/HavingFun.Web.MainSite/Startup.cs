@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using HavingFun.Web.MainSite.AppSettings;
+using HavingFun.Common.AppSettings;
+using HavingFun.Common.Interfaces.BLL;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace HavingFun.Web.MainSite
 {
@@ -26,9 +30,38 @@ namespace HavingFun.Web.MainSite
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.Configure<CustomSettings>(Configuration.GetSection("CustomSettings"));
+
+            // configure strongly typed settings objects
+            var customAppSettingsSection = Configuration.GetSection("CustomSettings");
+            services.Configure<CustomSettings>(customAppSettingsSection);
+
+            // configure jwt authentication
+            var appSettings = customAppSettingsSection.Get<CustomSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.JWTSecret);
+
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+              .AddJwtBearer(x =>
+              {
+                  x.RequireHttpsMetadata = false;
+                  x.SaveToken = true;
+                  x.TokenValidationParameters = new TokenValidationParameters
+                  {
+                      ValidateIssuerSigningKey = true,
+                      IssuerSigningKey = new SymmetricSecurityKey(key),
+                      ValidateIssuer = false,
+                      ValidateAudience = false
+                  };
+              });
+
             services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
+
+            services.AddScoped<IUserService, Tests.Stubs.UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +77,14 @@ namespace HavingFun.Web.MainSite
             }
 
             app.UseHttpsRedirection();
+
+            // global cors policy
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
+            app.UseAuthentication();
             app.UseMvc();
         }
     }
