@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace HavingFun.Web.MainSite.Controllers
+namespace HavingFun.API.Main.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

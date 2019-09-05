@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <RootNamespace>HavingFun.API.Main</RootNamespace>
+    <AssemblyName>HavingFun.API.Main</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,12 +18,14 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.5.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HavingFun.Common\HavingFun.Common.csproj" />
-    <ProjectReference Include="..\HavingFun.Tests.Stubs\HavingFun.Tests.Stubs.csproj" />
+    <ProjectReference Include="..\..\HavingFun.BLL\HavingFun.BLL.csproj" />
+    <ProjectReference Include="..\..\HavingFun.Common\HavingFun.Common.csproj" />
+    <ProjectReference Include="..\..\HavingFun.Tests.Stubs\HavingFun.Tests.Stubs.csproj" />
   </ItemGroup>
 
 </Project>

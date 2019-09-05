@@ -14,9 +14,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.AspNetCore.Swagger;
 
-namespace HavingFun.Web.MainSite
+namespace HavingFun.API.Main
 {
     public class Startup
     {
@@ -59,6 +61,24 @@ namespace HavingFun.Web.MainSite
                   };
               });
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info
+                {
+                    Version = "v1",
+                    Title = "My API .NET Core Main API",
+                    Description = "Przykładowy opis",
+                    TermsOfService = "None",
+                    Contact = new Contact()
+                    {
+                        Name = "Strona główna - Karol Łątka",
+                    }
+                });
+                c.DescribeAllEnumsAsStrings();
+            });
+
+            IdentityModelEventSource.ShowPII = true;
+
             services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
 
             services.AddScoped<IUserService, Tests.Stubs.UserService>();
@@ -86,6 +106,12 @@ namespace HavingFun.Web.MainSite
 
             app.UseAuthentication();
             app.UseMvc();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
         }
     }
 }
