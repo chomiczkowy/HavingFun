@@ -56,20 +56,25 @@ namespace HavingFun.Tests.Stubs
             var token = tokenHandler.CreateToken(tokenDescriptor);
             user.Token = tokenHandler.WriteToken(token);
 
-            // remove password before returning
-            user.Password = null;
-
-            return user;
+            return new User()
+            {
+                Token = user.Token,
+                Username = user.Username,
+                FirstName = user.FirstName,
+                LastName = user.LastName
+            };
         }
 
         public IEnumerable<User> GetAll()
         {
             // return users without passwords
-            return _users.Select(x =>
+            return _users.Select(x => new User
             {
-                x.Password = null;
-                return x;
-            });
+                Id = x.Id,
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                Username = x.Username
+            }).ToArray();
         }
     }
 }
