@@ -10,6 +10,7 @@ import { UsersListComponent } from './features/users/users-list/users-list.compo
 import { LoginComponent } from './features/login/login.component';
 
 import {ButtonModule} from 'primeng/button';
+import {TableModule} from 'primeng/table';
 import { AuthGuard } from './infrastructure/auth.guard';
 
 @NgModule({
@@ -23,7 +24,10 @@ import { AuthGuard } from './infrastructure/auth.guard';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ButtonModule
+
+    //PrimeNg modules
+    ButtonModule,
+    TableModule
   ],
   providers: [
     {

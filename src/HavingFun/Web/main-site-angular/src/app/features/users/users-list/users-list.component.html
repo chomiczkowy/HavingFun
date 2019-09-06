@@ -6,21 +6,21 @@
                 class="ui-button-primary"
                 (click)="getUsers()"></button>
     </div>
-    <table>
-      <thead>
+    <p-table [value]="allUsers">
+            <ng-template pTemplate="header">
         <tr>
           <th>Number</th>
           <th>First name</th>
           <th>Last name</th>
         </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of allUsers, let idx = index">
+      </ng-template>
+      <ng-template pTemplate="body" let-user let-idx="rowIndex">
+        <tr>
             <td>{{idx+1}}</td>
           <td>{{user.firstName}}</td>
           <td>{{user.lastName}}</td>
         </tr>
-      </tbody>
-    </table>
+      </ng-template>
+    </p-table>
    
   </div>
