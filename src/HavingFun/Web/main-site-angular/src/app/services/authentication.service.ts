@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserModel } from '../models/user-model';
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +15,12 @@ export class AuthenticationService {
 
   }
  
-
   public isAuthenticated(){
-    return this.loggedUser && !!this.loggedUser.token;
+    return !!this.getAuthToken();
   }
 
-  public authenticate(userModel:UserModel){
-    this.http.post<UserModel>(this.apiUrl+"/authenticate", userModel)
+  public authenticate(userModel:UserModel): Subscription {
+    return this.http.post<UserModel>(this.apiUrl+"/authenticate", userModel)
       .subscribe((response)=>{
           this.loggedUser=response;
       }, (err)=>{
@@ -28,16 +28,7 @@ export class AuthenticationService {
       });
   }
 
-  private getHeaders(){
-    var headers=new HttpHeaders();
-    if(this.isAuthenticated()){
-      headers=headers.set("Content-Type","application/json");
-      headers=headers.set("Authorization", "Bearer " + this.loggedUser.token);
-    }
-    return headers;
-  }
-  
-  public getUsers(){
-    return this.http.get<UserModel[]>(this.apiUrl, {headers: this.getHeaders()});
+  public getAuthToken(){
+    return this.loggedUser? this.loggedUser.token : null;
   }
 }

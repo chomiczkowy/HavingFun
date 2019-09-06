@@ -12,35 +12,7 @@ import { HttpHeaders } from '@angular/common/http';
 export class AppComponent {
   title = 'main-site-angular';
 
-  allUsers:UserModel[]=[];
+  constructor(){
 
-  constructor(private authService: AuthenticationService){
-
-  }
-  
-  private userModel : UserModel={
-    username:"",
-    password:"",
-  };
-
-  onSubmit(f:NgForm){
-    console.log(f.value);  
-    console.log(f.valid);
-
-    if(f.valid){
-      this.authService.authenticate(this.userModel)
-    }
-  }
-
-  isAuthenticated(){
-    return this.authService.isAuthenticated();
-  }  
-
-  getUsers(){
-    this.authService.getUsers().subscribe((results)=>{
-      this.allUsers=results;
-    }, (err)=>{
-      alert(err);
-    });
   }
 }
