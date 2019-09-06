@@ -9,6 +9,9 @@ import { TokenInterceptor } from './infrastructure/token.interceptor';
 import { UsersListComponent } from './features/users/users-list/users-list.component';
 import { LoginComponent } from './features/login/login.component';
 
+import {ButtonModule} from 'primeng/button';
+import { AuthGuard } from './infrastructure/auth.guard';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,15 +22,16 @@ import { LoginComponent } from './features/login/login.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ButtonModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }
-
+    },
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,11 @@
 <div>
-    <div><button class="btn primary-btn" type="button" (click)="getUsers()">Get users</button></div>
+    <div>
+        <button pButton 
+                type="button" 
+                label="Get users" 
+                class="ui-button-primary"
+                (click)="getUsers()"></button>
+    </div>
     <table>
       <thead>
         <tr>
