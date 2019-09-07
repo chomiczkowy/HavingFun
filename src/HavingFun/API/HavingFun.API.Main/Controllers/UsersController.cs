@@ -46,19 +46,8 @@ namespace HavingFun.API.Main.Controllers
 
         [HttpGet]
         public IActionResult GetAll()
-        {
-            StringValues authHeaders = this.Request.Headers["Authorization"];
-            if (authHeaders.Count() > 1)
-            {
-                return Unauthorized();
-            }
-
-            string authHeaderVal = authHeaders.First();
-            string userToken = authHeaderVal.Replace("Bearer ", string.Empty);
-
-            var claims = _tokenProvider.GetClaims(userToken);
-
-            var requiredClaim = claims.FirstOrDefault(x => x.Type == CustomClaims.CanSeeUsersList);
+        {          
+            var requiredClaim = this.HttpContext.User.Claims.FirstOrDefault(x => x.Type == CustomClaims.CanSeeUsersList);
             if (requiredClaim == null || requiredClaim.Value != ClaimsDefaultValues.Allow)
             {
                 return Unauthorized();
