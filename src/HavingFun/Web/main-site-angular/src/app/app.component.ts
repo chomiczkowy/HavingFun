@@ -3,6 +3,7 @@ import {NgForm} from '@angular/forms';
 import { UserModel } from './models/user-model';
 import { AuthenticationService } from './services/authentication.service';
 import { HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,12 @@ import { HttpHeaders } from '@angular/common/http';
 export class AppComponent {
   title = 'main-site-angular';
 
-  constructor(){
+  constructor(private authService:AuthenticationService, private router: Router){
 
+  }
+  
+  logOff(){
+    this.authService.logOff();
+    this.router.navigate(['/']);
   }
 }
