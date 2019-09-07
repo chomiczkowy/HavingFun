@@ -7,7 +7,7 @@
                 (click)="getUsers()"></button>
     </div>
     <p-table [value]="allUsers">
-            <ng-template pTemplate="header">
+      <ng-template pTemplate="header">
         <tr>
           <th>Number</th>
           <th>First name</th>
@@ -16,7 +16,7 @@
       </ng-template>
       <ng-template pTemplate="body" let-user let-idx="rowIndex">
         <tr>
-            <td>{{idx+1}}</td>
+          <td>{{idx+1}}</td>
           <td>{{user.firstName}}</td>
           <td>{{user.lastName}}</td>
         </tr>

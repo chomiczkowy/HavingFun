@@ -6,6 +6,11 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.9.4" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HavingFun.Common\HavingFun.Common.csproj" />
   </ItemGroup>
 
 </Project>

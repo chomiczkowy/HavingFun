@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HavingFun.Common.AppSettings;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using HavingFun.API.Main.Configuration;
 using HavingFun.Common.Interfaces.BLL;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -30,17 +32,28 @@ namespace HavingFun.API.Main
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // configure strongly typed settings objects
-            var customAppSettingsSection = Configuration.GetSection("CustomSettings");
-            services.Configure<CustomSettings>(customAppSettingsSection);
+            var customAppSettingsSection = Configuration.GetSection("CustomSettings").Get<CustomSettings>();
+            services.AddSingleton(customAppSettingsSection);
+            services.AddSingleton(Configuration.GetSection("ConnectionStrings").Get<ConnectionStrings>());
 
             // configure jwt authentication
-            var appSettings = customAppSettingsSection.Get<CustomSettings>();
+            SetUpJWT(services, customAppSettingsSection);
+            SetUpSwagger(services);
+            
+            IdentityModelEventSource.ShowPII = true;
+
+            
+            return ConfigureDI(services);
+        }
+
+        private static void SetUpJWT(IServiceCollection services, CustomSettings appSettings)
+        {
             var key = Encoding.ASCII.GetBytes(appSettings.JWTSecret);
 
             services.AddAuthentication(x =>
@@ -48,19 +61,22 @@ namespace HavingFun.API.Main
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-              .AddJwtBearer(x =>
-              {
-                  x.RequireHttpsMetadata = false;
-                  x.SaveToken = true;
-                  x.TokenValidationParameters = new TokenValidationParameters
-                  {
-                      ValidateIssuerSigningKey = true,
-                      IssuerSigningKey = new SymmetricSecurityKey(key),
-                      ValidateIssuer = false,
-                      ValidateAudience = false
-                  };
-              });
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+        }
 
+        private static void SetUpSwagger(IServiceCollection services)
+        {
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info
@@ -76,12 +92,15 @@ namespace HavingFun.API.Main
                 });
                 c.DescribeAllEnumsAsStrings();
             });
+        }
 
-            IdentityModelEventSource.ShowPII = true;
-
-            services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
-
-            services.AddScoped<IUserService, Tests.Stubs.UserService>();
+        private static IServiceProvider ConfigureDI(IServiceCollection services)
+        {
+            var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterModule<MainApiDIModule>();
+            containerBuilder.Populate(services);
+            var container = containerBuilder.Build();
+            return new AutofacServiceProvider(container);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
