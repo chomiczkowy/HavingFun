@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserModel } from 'src/app/models/user-model';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Router } from '@angular/router';
 
@@ -11,11 +11,20 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
+  loginForm:FormGroup;
+
   constructor(private authService: AuthenticationService,
-              private router:Router) { }
+              private router:Router,
+              private fb:FormBuilder) { }
 
   ngOnInit() {
     this.redirectIfLoggedIn();
+
+    this.loginForm=this.fb.group({
+      username:['', Validators.required],
+      password:['', Validators.required]
+    });
+   
   }
 
   private redirectIfLoggedIn(){
@@ -24,19 +33,15 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  private userModel : UserModel={
-    username:"",
-    password:"",
-  };
+  onSubmit(){
+    console.log(this.loginForm.value);  
+    console.log(this.loginForm.valid);
 
-  onSubmit(f:NgForm){
-    console.log(f.value);  
-    console.log(f.valid);
-
-    if(f.valid){
-      this.authService.authenticate(this.userModel).add(()=>{
-        this.redirectIfLoggedIn();
-      });
+    if(this.loginForm.valid){
+      this.authService.authenticate(<any>this.loginForm.value)
+        .add(()=>{
+          this.redirectIfLoggedIn();
+        });
     }
   }
 

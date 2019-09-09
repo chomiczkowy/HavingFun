@@ -50,7 +50,7 @@ namespace HavingFun.API.Main.Controllers
             var requiredClaim = this.HttpContext.User.Claims.FirstOrDefault(x => x.Type == CustomClaims.CanSeeUsersList);
             if (requiredClaim == null || requiredClaim.Value != ClaimsDefaultValues.Allow)
             {
-                return Unauthorized();
+                return Forbid();
             }
 
             var users = _userService.GetAll();
