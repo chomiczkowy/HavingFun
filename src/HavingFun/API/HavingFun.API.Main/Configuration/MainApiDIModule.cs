@@ -15,15 +15,15 @@ namespace HavingFun.API.Main.Configuration
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterModule<BLLModule>();
-            builder.RegisterModule<ApiCommonDIModule>();
-
-            builder.RegisterType<Tests.Stubs.UserService>().As<IUserService>();
+            builder.RegisterType<UserService>().As<IUserService>();
 
             var logFactory = NLog.Web.NLogBuilder.ConfigureNLog("nlog.config");
 
             builder.Register(c => logFactory.GetCurrentClassLogger()).As<Logger>();
             builder.RegisterType<LoggerHelper>().AsSelf();
+
+            builder.RegisterModule<BLLModule>();
+            builder.RegisterModule<ApiCommonDIModule>();
         }
     }
 }

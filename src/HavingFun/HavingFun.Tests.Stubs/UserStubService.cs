@@ -12,11 +12,11 @@ using System.Text;
 
 namespace HavingFun.Tests.Stubs
 {
-    public class UserService : IUserService
+    public class UserStubService : IUserService
     {
         private static readonly List<User> _users;
 
-        static UserService()
+        static UserStubService()
         {
             _users = new List<User>();
 
@@ -37,7 +37,7 @@ namespace HavingFun.Tests.Stubs
             }
         }
 
-        public UserService()
+        public UserStubService()
         {
         }
 

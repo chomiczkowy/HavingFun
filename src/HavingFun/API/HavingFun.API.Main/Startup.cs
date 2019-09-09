@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using HavingFun.API.Common;
 using HavingFun.API.Main.Configuration;
 using HavingFun.Common.Interfaces.BLL;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -40,16 +41,15 @@ namespace HavingFun.API.Main
             // configure strongly typed settings objects
             var customAppSettingsSection = Configuration.GetSection("CustomSettings").Get<CustomSettings>();
             services.AddSingleton(customAppSettingsSection);
-            services.AddSingleton(Configuration.GetSection("ConnectionStrings").Get<ConnectionStrings>());
+            var connectionStrings = Configuration.GetSection("ConnectionStrings").Get<ConnectionStrings>();
 
             // configure jwt authentication
             SetUpJWT(services, customAppSettingsSection);
             SetUpSwagger(services);
             
             IdentityModelEventSource.ShowPII = true;
-
-            
-            return ConfigureDI(services);
+           
+            return ConfigureDI(services, connectionStrings);
         }
 
         private static void SetUpJWT(IServiceCollection services, CustomSettings appSettings)
@@ -94,11 +94,14 @@ namespace HavingFun.API.Main
             });
         }
 
-        private static IServiceProvider ConfigureDI(IServiceCollection services)
+        private static IServiceProvider ConfigureDI(IServiceCollection services, ConnectionStrings connectionStrings)
         {
             var containerBuilder = new ContainerBuilder();
+
+            containerBuilder.Properties["ConnectionStrings"] = connectionStrings;
             containerBuilder.RegisterModule<MainApiDIModule>();
             containerBuilder.Populate(services);
+
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);
         }
