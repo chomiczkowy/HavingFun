@@ -6,7 +6,14 @@
                 class="ui-button-primary"
                 (click)="getUsers()"></button>
     </div>
-    <p-table [value]="allUsers">
+    <div>
+        <p-paginator 
+          [rows]="currentPageSize" 
+          [totalRecords]="allUsersCount" 
+          [rowsPerPageOptions]="[10,20,30]"
+          (onPageChange)="loadPage($event)"></p-paginator>
+    </div>
+    <p-table [value]="usersPage">
       <ng-template pTemplate="header">
         <tr>
           <th>Number</th>

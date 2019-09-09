@@ -58,16 +58,20 @@ namespace HavingFun.Tests.Stubs
             };
         }
 
-        public IEnumerable<User> GetAll()
+        public PageableQueryResult<User> GetAll(int pageSize, int pageNumber)
         {
             // return users without passwords
-            return _users.Select(x => new User
+            return new PageableQueryResult<User>()
             {
-                Id = x.Id,
-                FirstName = x.FirstName,
-                LastName = x.LastName,
-                Username = x.Username
-            }).ToArray();
+                Items = _users.Skip(pageSize * pageNumber).Take(pageSize).Select(x => new User
+                {
+                    Id = x.Id,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    Username = x.Username
+                }).ToArray(),
+                AllItemsCount = _users.Count
+            };
         }
     }
 }

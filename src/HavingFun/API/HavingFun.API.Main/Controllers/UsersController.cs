@@ -45,7 +45,7 @@ namespace HavingFun.API.Main.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetAll(int pageSize, int pageNumber)
         {          
             var requiredClaim = this.HttpContext.User.Claims.FirstOrDefault(x => x.Type == CustomClaims.CanSeeUsersList);
             if (requiredClaim == null || requiredClaim.Value != ClaimsDefaultValues.Allow)
@@ -53,7 +53,7 @@ namespace HavingFun.API.Main.Controllers
                 return Forbid();
             }
 
-            var users = _userService.GetAll();
+            var users = _userService.GetAll(pageSize, pageNumber);
             return Ok(users);
         }
     }

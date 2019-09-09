@@ -8,6 +8,6 @@ namespace HavingFun.Common.Interfaces.BLL
     public interface IUserService
     {
         User Authenticate(string username, string password);
-        IEnumerable<User> GetAll();
+        PageableQueryResult<User> GetAll(int pageSize, int pageNumber);
     }
 }
