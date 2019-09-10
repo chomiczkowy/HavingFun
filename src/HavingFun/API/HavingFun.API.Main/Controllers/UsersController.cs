@@ -32,7 +32,7 @@ namespace HavingFun.API.Main.Controllers
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromBody]User userParam)
+        public IActionResult Authenticate([FromBody]UserLoginModel userParam)
         {
             var user = _userService.Authenticate(userParam.Username, userParam.Password);
 
@@ -53,7 +53,7 @@ namespace HavingFun.API.Main.Controllers
                 return Forbid();
             }
 
-            var users = _userService.GetAll(pageSize, pageNumber);
+            var users = _userService.GetPage(pageSize, pageNumber);
             return Ok(users);
         }
     }

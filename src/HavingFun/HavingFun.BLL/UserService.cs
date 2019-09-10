@@ -1,6 +1,7 @@
 ﻿using HavingFun.Common.Consts;
 using HavingFun.Common.Interfaces.BLL;
 using HavingFun.Common.Models;
+using HavingFun.DapperDAL;
 using HavingFun.EFDAL;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -16,26 +17,28 @@ namespace HavingFun.BLL
 {
     public class UserService : IUserService
     {
-        private CommandRepositoriesContainer _container;
+        private CommandRepositoriesContainer _cmdContainer;
+        private QueryRepositoriesContainer _queryContainer;
 
-        public UserService(CommandRepositoriesContainer container)
+        public UserService(CommandRepositoriesContainer cmdContainer, QueryRepositoriesContainer queryContainer)
         {
-            _container = container;
+            _cmdContainer = cmdContainer;
+            _queryContainer = queryContainer;
         }
 
-        public User Authenticate(string username, string password)
+        public UserModel Authenticate(string username, string password)
         {
-            var user = _container.UserQueryRepository.GetById(username);
+            var user = _queryContainer.UserQueryRepository.GetByUserName<UserModel>(username);
 
             // return null if user not found
             if (user == null || user.PasswordHash != HashPassword(password))
                 return null;
 
-            return new User()
+            return new UserModel()
             {
-                Username = user.UserName,
-                FirstName = user.UserName,
-                LastName = user.UserName,
+                Username = user.Username,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
                 Claims = new Claim[0] //TODO
             };
         }
@@ -57,18 +60,18 @@ namespace HavingFun.BLL
             }
         }
 
-        public PageableQueryResult<User> GetAll(int pageSize, int pageNumber)
+        public PageableQueryResult<UserModel> GetPage(int pageSize, int pageNumber)
         {
-            var result = _container.UserQueryRepository.GetAll(pageSize, pageNumber);
+            var result = _queryContainer.UserQueryRepository.GetPage<UserModel>(pageSize, pageNumber);
 
-            return new PageableQueryResult<User>()
+            return new PageableQueryResult<UserModel>()
             {
-                Items = result.Items.Select(x => new User
+                Items = result.Items.Select(x => new UserModel
                 {
                     Id = 1, //TODO
-                    FirstName = x.UserName,
-                    LastName = x.UserName,
-                    Username = x.UserName
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    Username = x.Username
                 }).ToArray(),
                 AllItemsCount = result.AllItemsCount
             };

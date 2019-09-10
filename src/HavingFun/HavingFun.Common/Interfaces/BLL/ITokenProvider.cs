@@ -8,7 +8,7 @@ namespace HavingFun.Common.Interfaces.BLL
 {
    public interface ITokenProvider
     {
-        string CreateToken(User user, string secret);
+        string CreateToken(UserModel user, string secret);
         IEnumerable<Claim> GetClaims(string token);
     }
 }

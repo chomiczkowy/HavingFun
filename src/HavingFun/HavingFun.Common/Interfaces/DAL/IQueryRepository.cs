@@ -5,9 +5,9 @@ using System.Text;
 
 namespace HavingFun.Common.Interfaces.DAL
 {
-    public interface IQueryRepository<TEntity, TKey>
+    public interface IQueryRepository<TKey>
     {
-        TEntity GetById(TKey id);
-        PageableQueryResult<TEntity> GetAll(int pageSize, int pageNumber);
+        TQueryModel GetById<TQueryModel>(TKey id);
+        PageableQueryResult<TQueryModel> GetPage<TQueryModel>(int pageSize, int pageNumber);
     }
 }

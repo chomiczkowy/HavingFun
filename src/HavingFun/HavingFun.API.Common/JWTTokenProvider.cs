@@ -12,7 +12,7 @@ namespace HavingFun.API.Common
 {
     public class JWTTokenProvider : ITokenProvider
     {
-        public string CreateToken(User user, string secret)
+        public string CreateToken(UserModel user, string secret)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(secret);

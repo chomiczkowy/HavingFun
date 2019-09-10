@@ -4,10 +4,10 @@ using System.Text;
 
 namespace HavingFun.Common.Interfaces.DAL
 {
-    public interface ICommandRepository<TEntity, TKey>
+    public interface ICommandRepository<TEntity, TKey, TAggregateRoot>
     {
         TKey Add(TEntity entity);
-        void Update(TEntity entity);
+        TAggregateRoot GetForUpdate(TKey key);
         void Remove(TEntity entity);
         void SaveChanges();
     }

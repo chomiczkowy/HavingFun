@@ -7,7 +7,7 @@ namespace HavingFun.Common.Interfaces.BLL
 {
     public interface IUserService
     {
-        User Authenticate(string username, string password);
-        PageableQueryResult<User> GetAll(int pageSize, int pageNumber);
+        UserModel Authenticate(string username, string password);
+        PageableQueryResult<UserModel> GetPage(int pageSize, int pageNumber);
     }
 }

@@ -15,10 +15,6 @@ namespace HavingFun.BLL
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<CommandRepositoriesContainer>().AsSelf();
-            builder.RegisterType<UserCommandRepository>().AsSelf();
-            builder.RegisterType<UserQueryRepository>().AsSelf();
-
-
         }
     }
 }

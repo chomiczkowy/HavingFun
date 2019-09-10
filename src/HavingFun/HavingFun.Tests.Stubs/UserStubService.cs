@@ -14,15 +14,15 @@ namespace HavingFun.Tests.Stubs
 {
     public class UserStubService : IUserService
     {
-        private static readonly List<User> _users;
+        private static readonly List<UserLoginModel> _users;
 
         static UserStubService()
         {
-            _users = new List<User>();
+            _users = new List<UserLoginModel>();
 
             for (var i = 1; i <= 200; i++)
             {
-                var user = new User { Id = 1, FirstName = "Test_" + i, LastName = "User_" + i, Username = "test" + i, Password = "test" + i };
+                var user = new UserLoginModel { Id = 1, FirstName = "Test_" + i, LastName = "User_" + i, Username = "test" + i, Password = "test" + i };
                 var claimsList = new List<Claim>();
                 claimsList.Add(new Claim(ClaimTypes.Name, user.Id.ToString()));
 
@@ -41,7 +41,7 @@ namespace HavingFun.Tests.Stubs
         {
         }
 
-        public User Authenticate(string username, string password)
+        public UserModel Authenticate(string username, string password)
         {
             var user = _users.SingleOrDefault(x => x.Username == username && x.Password == password);
 
@@ -49,7 +49,7 @@ namespace HavingFun.Tests.Stubs
             if (user == null)
                 return null;
 
-            return new User()
+            return new UserModel()
             {
                 Username = user.Username,
                 FirstName = user.FirstName,
@@ -58,12 +58,12 @@ namespace HavingFun.Tests.Stubs
             };
         }
 
-        public PageableQueryResult<User> GetAll(int pageSize, int pageNumber)
+        public PageableQueryResult<UserModel> GetPage(int pageSize, int pageNumber)
         {
             // return users without passwords
-            return new PageableQueryResult<User>()
+            return new PageableQueryResult<UserModel>()
             {
-                Items = _users.Skip(pageSize * pageNumber).Take(pageSize).Select(x => new User
+                Items = _users.Skip(pageSize * pageNumber).Take(pageSize).Select(x => new UserModel
                 {
                     Id = x.Id,
                     FirstName = x.FirstName,

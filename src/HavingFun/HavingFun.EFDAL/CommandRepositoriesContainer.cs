@@ -7,14 +7,12 @@ namespace HavingFun.EFDAL
     public class CommandRepositoriesContainer
     {
         public UserCommandRepository UserCommandRepository { get; set; }
-        public UserQueryRepository UserQueryRepository { get; set; }
 
         public CommandRepositoriesContainer(DbContextOptions<MainDBContext> dbContextOptions)
         {
             var dbContext = new MainDBContext(dbContextOptions);
 
             UserCommandRepository = new UserCommandRepository(dbContext);
-            UserQueryRepository = new UserQueryRepository(dbContext);
         }
     }
 }

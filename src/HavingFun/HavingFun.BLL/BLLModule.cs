@@ -18,6 +18,7 @@ namespace HavingFun.BLL
 
             builder.Register((componentContext) => optionsBuilder.Options);
             builder.RegisterModule<EFDALModule>();
+            builder.RegisterModule<DapperDALModule>();
         }
     }
 }
