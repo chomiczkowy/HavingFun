@@ -7,6 +7,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using HavingFun.API.Common;
 using HavingFun.API.Main.Configuration;
+using HavingFun.Common;
 using HavingFun.Common.Interfaces.BLL;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -134,6 +135,8 @@ namespace HavingFun.API.Main
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
+
+            app.ConfigureExceptionHandler(app.ApplicationServices.GetService<LoggerHelper>());
         }
     }
 }
