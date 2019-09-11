@@ -128,6 +128,7 @@ namespace HavingFun.API.Main
                 .AllowAnyHeader());
 
             app.UseAuthentication();
+            app.ConfigureExceptionHandler(app.ApplicationServices.GetService<LoggerHelper>());
             app.UseMvc();
 
             app.UseSwagger();
@@ -136,7 +137,6 @@ namespace HavingFun.API.Main
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
-            app.ConfigureExceptionHandler(app.ApplicationServices.GetService<LoggerHelper>());
         }
     }
 }

@@ -7,7 +7,7 @@ namespace HavingFun.Common.Interfaces.DAL
 {
     public interface ICommandRepository<TKey, TEntity, TAggregateRoot> where TAggregateRoot: AggregateRoot<TEntity>
     {
-        TKey Add(TEntity entity);
+        TKey Add(TAggregateRoot entity);
         TAggregateRoot GetForUpdate(TKey key);
         void Remove(TEntity entity);
         void SaveChanges();

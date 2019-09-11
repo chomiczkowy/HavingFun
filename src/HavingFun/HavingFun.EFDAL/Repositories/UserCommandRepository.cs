@@ -17,7 +17,7 @@ namespace HavingFun.EFDAL.Repositories
             _dbContext = dbContext;
         }
 
-        public int Add(User entity)
+        public int Add(UserAggregateRoot entity)
         {
             throw new NotImplementedException();
         }
