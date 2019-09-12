@@ -1,5 +1,5 @@
 ﻿using HavingFun.Common.Interfaces.DAL;
-using HavingFun.EFDA.Context;
+using HavingFun.EFDAL.Context;
 using HavingFun.EFDAL.AggregateRoots;
 using HavingFun.EFDAL.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace HavingFun.EFDAL.Repositories
 {
-    public class UserCommandRepository : ICommandRepository<int, User, UserAggregateRoot>
+    public class UserCommandRepository : ICommandRepository<int, User, MainDBContext, UserAggregateRoot>
     {
         private MainDBContext _dbContext;
 
@@ -17,15 +17,10 @@ namespace HavingFun.EFDAL.Repositories
             _dbContext = dbContext;
         }
 
-        public int Add(UserAggregateRoot entity)
-        {
-            throw new NotImplementedException();
-        }
-
         public UserAggregateRoot GetForUpdate(int key)
         {
             var user= _dbContext.Users.Find(key);
-            return new UserAggregateRoot(user);
+            return new UserAggregateRoot(user, _dbContext);
         }
 
         public void Remove(User entity)
@@ -36,6 +31,11 @@ namespace HavingFun.EFDAL.Repositories
         public void SaveChanges()
         {
             throw new NotImplementedException();
+        }
+
+        public UserAggregateRoot GetForAdd()
+        {
+            return new UserAggregateRoot(null, _dbContext);
         }
     }
 }

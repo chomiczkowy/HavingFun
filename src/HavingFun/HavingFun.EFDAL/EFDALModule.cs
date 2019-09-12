@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using HavingFun.EFDA.Context;
+using HavingFun.EFDAL.Context;
 using HavingFun.EFDAL;
 using HavingFun.EFDAL.Repositories;
 using Microsoft.AspNetCore.Identity;

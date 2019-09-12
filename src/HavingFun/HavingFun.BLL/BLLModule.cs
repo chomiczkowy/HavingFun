@@ -1,6 +1,6 @@
 ﻿using Autofac;
 using HavingFun.API.Common;
-using HavingFun.EFDA.Context;
+using HavingFun.EFDAL.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

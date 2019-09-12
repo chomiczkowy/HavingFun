@@ -58,6 +58,16 @@ namespace HavingFun.Tests.Stubs
             };
         }
 
+        public int? Create(UserLoginModel userModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public UserModel GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public PageableQueryResult<UserModel> GetPage(int pageSize, int pageNumber)
         {
             // return users without passwords

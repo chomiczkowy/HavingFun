@@ -23,7 +23,7 @@ namespace HavingFun.DapperDAL.Repositories
             using (NpgsqlConnection conn = new NpgsqlConnection(_connectionString))
             {
                 conn.Open();
-                return conn.QuerySingle<TQueryModel>("SELECT * from schUsers.Users u WHERE u.Id = " + id);
+                return conn.QuerySingleOrDefault<TQueryModel>("SELECT * from \"schUsers\".\"Users\" u WHERE u.\"Id\" = @id", new { id });
             }
         }
 
@@ -43,7 +43,7 @@ namespace HavingFun.DapperDAL.Repositories
                 conn.Open();
                 var count = conn.ExecuteScalar<int>("SELECT COUNT(*) FROM \"schUsers.Users\"");
                 var itemsOnPage = conn.Query<TQueryModel>($"SELECT u.*, row_number() OVER (ORDER BY Id) as rnum from \"schUsers\".\"Users\" u WHERE rnum > @minRowNumExcl AND rnum <= @maxRowIncl",
-                    new { minRowNumExcl= pageSize * pageNumber , maxRowIncl= pageSize * (pageNumber + 1) });
+                    new { minRowNumExcl = pageSize * pageNumber, maxRowIncl = pageSize * (pageNumber + 1) });
 
                 return new PageableQueryResult<TQueryModel>()
                 {

@@ -3,6 +3,8 @@ using HavingFun.Common.Interfaces.BLL;
 using HavingFun.Common.Models;
 using HavingFun.DapperDAL;
 using HavingFun.EFDAL;
+using HavingFun.EFDAL.AggregateRoots;
+using HavingFun.EFDAL.Entities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -19,11 +21,14 @@ namespace HavingFun.BLL
     {
         private CommandRepositoriesContainer _cmdContainer;
         private QueryRepositoriesContainer _queryContainer;
+        private IPasswordHasher _passwordHasher;
 
-        public UserService(CommandRepositoriesContainer cmdContainer, QueryRepositoriesContainer queryContainer)
+        public UserService(CommandRepositoriesContainer cmdContainer, QueryRepositoriesContainer queryContainer,
+            IPasswordHasher passwordHasher)
         {
             _cmdContainer = cmdContainer;
             _queryContainer = queryContainer;
+            _passwordHasher = passwordHasher;
         }
 
         public UserModel Authenticate(string username, string password)
@@ -31,7 +36,7 @@ namespace HavingFun.BLL
             var user = _queryContainer.UserQueryRepository.GetByUserName<UserModel>(username);
 
             // return null if user not found
-            if (user == null || user.PasswordHash != HashPassword(password))
+            if (user == null || user.PasswordHash != _passwordHasher.HashPassword(password))
                 return null;
 
             return new UserModel()
@@ -39,26 +44,10 @@ namespace HavingFun.BLL
                 Username = user.Username,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Claims = new Claim[0] //TODO
+                Claims = new System.Security.Claims.Claim[0] //TODO
             };
         }
 
-        private string HashPassword(string password)
-        {
-            using (SHA256 sha256Hash = SHA256.Create())
-            {
-                // ComputeHash - returns byte array  
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
-
-                // Convert byte array to a string   
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
-                {
-                    builder.Append(bytes[i].ToString("x2"));
-                }
-                return builder.ToString();
-            }
-        }
 
         public PageableQueryResult<UserModel> GetPage(int pageSize, int pageNumber)
         {
@@ -75,6 +64,17 @@ namespace HavingFun.BLL
                 }).ToArray(),
                 AllItemsCount = result.AllItemsCount
             };
+        }
+
+        public int? Create(UserLoginModel userModel)
+        {
+            var userAggregate = _cmdContainer.UserCommandRepository.GetForAdd();
+            return userAggregate.AddNew(userModel, _passwordHasher);
+        }
+
+        public UserModel GetById(int id)
+        {
+            return _queryContainer.UserQueryRepository.GetById<UserModel>(id);
         }
     }
 }
