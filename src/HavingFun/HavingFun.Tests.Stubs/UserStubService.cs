@@ -14,15 +14,15 @@ namespace HavingFun.Tests.Stubs
 {
     public class UserStubService : IUserService
     {
-        private static readonly List<UserLoginModel> _users;
+        private static readonly List<UserStubModel> _users;
 
         static UserStubService()
         {
-            _users = new List<UserLoginModel>();
+            _users = new List<UserStubModel>();
 
             for (var i = 1; i <= 200; i++)
             {
-                var user = new UserLoginModel { Id = 1, FirstName = "Test_" + i, LastName = "User_" + i, Username = "test" + i, Password = "test" + i };
+                var user = new UserStubModel { Id = 1, FirstName = "Test_" + i, LastName = "User_" + i, Username = "test" + i, Password = "test" + i };
                 var claimsList = new List<Claim>();
                 claimsList.Add(new Claim(ClaimTypes.Name, user.Id.ToString()));
 
@@ -37,8 +37,11 @@ namespace HavingFun.Tests.Stubs
             }
         }
 
-        public UserStubService()
+        private IPasswordHasher _passwordHasher;
+
+        public UserStubService(IPasswordHasher passwordHasher)
         {
+            _passwordHasher = passwordHasher;
         }
 
         public UserModel Authenticate(string username, string password)
@@ -58,7 +61,7 @@ namespace HavingFun.Tests.Stubs
             };
         }
 
-        public int? Create(UserLoginModel userModel)
+        public int? Create(EditUserModel userModel)
         {
             throw new NotImplementedException();
         }

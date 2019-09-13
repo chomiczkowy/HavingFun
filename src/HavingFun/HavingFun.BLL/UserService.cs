@@ -66,7 +66,7 @@ namespace HavingFun.BLL
             };
         }
 
-        public int? Create(UserLoginModel userModel)
+        public int? Create(EditUserModel userModel)
         {
             var userAggregate = _cmdContainer.UserCommandRepository.GetForAdd();
             return userAggregate.AddNew(userModel, _passwordHasher);

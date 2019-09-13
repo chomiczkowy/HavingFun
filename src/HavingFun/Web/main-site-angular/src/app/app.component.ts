@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import { UserModel } from './models/user-model';
 import { AuthenticationService } from './services/authentication.service';
 import { HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';

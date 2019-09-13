@@ -1,4 +1,4 @@
-export interface UserModel{
+export interface DisplayUserModel{
     username:string;
     password:string;
     token?:string;

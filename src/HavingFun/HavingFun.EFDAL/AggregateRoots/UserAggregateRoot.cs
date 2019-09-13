@@ -10,7 +10,7 @@ namespace HavingFun.EFDAL.AggregateRoots
     {
         public UserAggregateRoot(User user, MainDBContext context) : base(user, context) { }
 
-        public int AddNew(UserLoginModel userModel, IPasswordHasher passwordHasher)
+        public int AddNew(EditUserModel userModel, IPasswordHasher passwordHasher)
         {
             var newUser = new User()
             {

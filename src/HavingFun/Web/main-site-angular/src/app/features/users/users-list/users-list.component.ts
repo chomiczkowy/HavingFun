@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserModel } from 'src/app/models/user-model';
 import { UserService } from 'src/app/services/user.service';
+import { DisplayUserModel } from 'src/app/models/users/display-user-model';
 
 @Component({
   selector: 'app-users-list',
@@ -17,7 +17,7 @@ export class UsersListComponent implements OnInit {
     this.getUsers(10,0);
   }
 
-  usersPage:UserModel[]=[];
+  usersPage:DisplayUserModel[]=[];
 
   getUsers(pageSize, pageNumber){
     this.userService.getUsers(pageSize>0? pageSize : this.defaultPageSize, pageNumber>0?pageNumber:0).subscribe((results)=>{

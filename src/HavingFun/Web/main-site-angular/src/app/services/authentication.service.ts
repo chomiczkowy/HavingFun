@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { UserModel } from '../models/user-model';
 import { Subscription } from 'rxjs';
+import { LoginUserModel } from '../models/users/login-user-model';
+import { EditUserModel } from '../models/users/edit-user-model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +11,12 @@ export class AuthenticationService {
   private apiUrl:string="https://localhost:44327/api/users";
   private loggedUserLocalStorageKey='having-fun-user';
 
-  private loggedUser:UserModel = null;
+  private loggedUser:EditUserModel = null;
 
   constructor(private http: HttpClient) { 
     var alreadyLoggedUserStr=localStorage.getItem(this.loggedUserLocalStorageKey);
     if(alreadyLoggedUserStr){
-      var alreadyLoggedUser=<UserModel>JSON.parse(alreadyLoggedUserStr);
+      var alreadyLoggedUser=<EditUserModel>JSON.parse(alreadyLoggedUserStr);
       if(alreadyLoggedUser && alreadyLoggedUser.token){
           this.loggedUser=alreadyLoggedUser;
       }
@@ -26,8 +27,8 @@ export class AuthenticationService {
     return !!this.getAuthToken();
   }
 
-  public authenticate(userModel:UserModel): Subscription {
-    return this.http.post<UserModel>(this.apiUrl+"/authenticate", userModel)
+  public authenticate(userModel:LoginUserModel): Subscription {
+    return this.http.post<EditUserModel>(this.apiUrl+"/authenticate", userModel)
       .subscribe((response)=>{
           this.loggedUser=response;
           localStorage.setItem(this.loggedUserLocalStorageKey, JSON.stringify(this.loggedUser));

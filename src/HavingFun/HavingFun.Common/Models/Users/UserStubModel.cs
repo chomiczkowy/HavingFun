@@ -5,9 +5,9 @@ using System.Text;
 
 namespace HavingFun.Common.Models
 {
-    public class UserLoginModel
+    public class UserStubModel
     {
-        public UserLoginModel()
+        public UserStubModel()
         {
             Claims = new Claim[0];
         }
@@ -16,7 +16,7 @@ namespace HavingFun.Common.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Username { get; set; }
-        public string Password{ get; set; }
+        public string Password { get; set; }
         public string Token { get; set; }
 
         public IEnumerable<Claim> Claims { get; set; }

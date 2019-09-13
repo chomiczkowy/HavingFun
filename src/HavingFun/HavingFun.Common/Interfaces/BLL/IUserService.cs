@@ -9,7 +9,7 @@ namespace HavingFun.Common.Interfaces.BLL
     {
         UserModel Authenticate(string username, string password);
         PageableQueryResult<UserModel> GetPage(int pageSize, int pageNumber);
-        int? Create(UserLoginModel userModel);
+        int? Create(EditUserModel userModel);
         UserModel GetById(int id);
     }
 }

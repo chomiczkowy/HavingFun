@@ -28,7 +28,7 @@ namespace HavingFun.API.Main.Controllers
 
         [AllowAnonymous]
         [HttpPut()]
-        public IActionResult Create([FromBody]UserLoginModel userModel)
+        public IActionResult Create([FromBody]EditUserModel userModel)
         {
 
             var id = _userService.Create(userModel);

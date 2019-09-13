@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { UserModel } from '../models/user-model';
 import { HttpClient } from '@angular/common/http';
 import { PageableQueryResult } from '../models/pageable-query-result';
+import { DisplayUserModel } from '../models/users/display-user-model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class UserService {
   constructor(private http:HttpClient) { }
  
   public getUsers(pageSize, pageNumber){
-    return this.http.get<PageableQueryResult<UserModel>>(this.apiUrl, {params:{
+    return this.http.get<PageableQueryResult<DisplayUserModel>>(this.apiUrl, {params:{
       pageSize,
       pageNumber
     }});

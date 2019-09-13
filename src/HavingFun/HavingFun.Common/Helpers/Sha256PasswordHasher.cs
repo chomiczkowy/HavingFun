@@ -1,11 +1,12 @@
-﻿using System;
+﻿using HavingFun.Common.Interfaces.BLL;
+using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 
 namespace HavingFun.Common.Helpers
 {
-    public class SHA256PasswordHasher
+    public class SHA256PasswordHasher : IPasswordHasher
     {
         public string HashPassword(string password)
         {
