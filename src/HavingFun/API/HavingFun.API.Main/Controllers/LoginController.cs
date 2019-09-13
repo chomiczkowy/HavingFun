@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
+using HavingFun.API.Common;
 
 namespace HavingFun.API.Main.Controllers
 {
@@ -34,7 +35,8 @@ namespace HavingFun.API.Main.Controllers
         [HttpPost()]
         public IActionResult Authenticate([FromBody]UserLoginModel userParam)
         {
-            var user = _userService.Authenticate(userParam.Username, userParam.Password);
+            var cmd = Request.ToCommand(userParam);
+            var user = _userService.Authenticate(cmd);
 
             if (user == null)
                 return BadRequest(new { message = "Username or password is incorrect" });

@@ -44,10 +44,10 @@ namespace HavingFun.Tests.Stubs
             _passwordHasher = passwordHasher;
         }
 
-        public UserModel Authenticate(string username, string password)
+        public UserModel Authenticate(Command<UserLoginModel> cmd)
         {
-            var user = _users.SingleOrDefault(x => x.Username == username && x.Password == password);
-
+            var user = _users.SingleOrDefault(x => x.Username == cmd.Data.Username && x.Password == cmd.Data.Password);
+           
             // return null if user not found
             if (user == null)
                 return null;
@@ -61,22 +61,22 @@ namespace HavingFun.Tests.Stubs
             };
         }
 
-        public int? Create(EditUserModel userModel)
+        public int? Create(Command<EditUserModel> userModel)
         {
             throw new NotImplementedException();
         }
 
-        public UserModel GetById(int id)
+        public UserModel GetById(Query<int> id)
         {
             throw new NotImplementedException();
         }
 
-        public PageableQueryResult<UserModel> GetPage(int pageSize, int pageNumber)
+        public PageableQueryResult<UserModel> GetPage(Query<PageableQueryParameters> query)
         {
             // return users without passwords
             return new PageableQueryResult<UserModel>()
             {
-                Items = _users.Skip(pageSize * pageNumber).Take(pageSize).Select(x => new UserModel
+                Items = _users.Skip(query.Data.PageSize * query.Data.PageNumber).Take(query.Data.PageSize).Select(x => new UserModel
                 {
                     Id = x.Id,
                     FirstName = x.FirstName,
@@ -85,6 +85,11 @@ namespace HavingFun.Tests.Stubs
                 }).ToArray(),
                 AllItemsCount = _users.Count
             };
+        }
+
+        public object Update(Command<EditUserModel> cmd)
+        {
+            throw new NotImplementedException();
         }
     }
 }

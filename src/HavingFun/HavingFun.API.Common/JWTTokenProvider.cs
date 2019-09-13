@@ -1,4 +1,5 @@
-﻿using HavingFun.Common.Interfaces.BLL;
+﻿using HavingFun.Common.Consts;
+using HavingFun.Common.Interfaces.BLL;
 using HavingFun.Common.Models;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -16,12 +17,16 @@ namespace HavingFun.API.Common
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(secret);
+            var claimsList = user.Claims.ToList();
+            claimsList.Add(new Claim(CustomClaims.UserId, user.Id.ToString()));
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(user.Claims.ToArray()),
+                Subject = new ClaimsIdentity(claimsList),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
+
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }

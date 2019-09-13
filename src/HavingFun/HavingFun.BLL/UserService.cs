@@ -1,19 +1,9 @@
-﻿using HavingFun.Common.Consts;
-using HavingFun.Common.Interfaces.BLL;
+﻿using HavingFun.Common.Interfaces.BLL;
 using HavingFun.Common.Models;
 using HavingFun.DapperDAL;
 using HavingFun.EFDAL;
-using HavingFun.EFDAL.AggregateRoots;
-using HavingFun.EFDAL.Entities;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace HavingFun.BLL
 {
@@ -31,12 +21,12 @@ namespace HavingFun.BLL
             _passwordHasher = passwordHasher;
         }
 
-        public UserModel Authenticate(string username, string password)
+        public UserModel Authenticate(Command<UserLoginModel> cmd)
         {
-            var user = _queryContainer.UserQueryRepository.GetByUserName<UserModel>(username);
+            var user = _queryContainer.UserQueryRepository.GetByUserName<UserModel>(cmd.Data.Username);
 
             // return null if user not found
-            if (user == null || user.PasswordHash != _passwordHasher.HashPassword(password))
+            if (user == null || user.PasswordHash != _passwordHasher.HashPassword(cmd.Data.Password))
                 return null;
 
             return new UserModel()
@@ -49,32 +39,31 @@ namespace HavingFun.BLL
         }
 
 
-        public PageableQueryResult<UserModel> GetPage(int pageSize, int pageNumber)
+        public PageableQueryResult<UserModel> GetPage(Query<PageableQueryParameters> query)
         {
-            var result = _queryContainer.UserQueryRepository.GetPage<UserModel>(pageSize, pageNumber);
-
-            return new PageableQueryResult<UserModel>()
-            {
-                Items = result.Items.Select(x => new UserModel
-                {
-                    Id = 1, //TODO
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
-                    Username = x.Username
-                }).ToArray(),
-                AllItemsCount = result.AllItemsCount
-            };
+            var result = _queryContainer.UserQueryRepository.GetPage<UserModel>(query.Data.PageSize, query.Data.PageNumber);
+            return result;
         }
 
-        public int? Create(EditUserModel userModel)
+        public int? Create(Command<EditUserModel> cmd)
         {
             var userAggregate = _cmdContainer.UserCommandRepository.GetForAdd();
-            return userAggregate.AddNew(userModel, _passwordHasher);
+            return userAggregate.AddNew(cmd.Data, _passwordHasher);
         }
 
         public UserModel GetById(int id)
         {
             return _queryContainer.UserQueryRepository.GetById<UserModel>(id);
+        }
+
+        public UserModel GetById(Query<int> query)
+        {
+            return _queryContainer.UserQueryRepository.GetById<UserModel>(query.Data);
+        }
+
+        public object Update(Command<EditUserModel> cmd)
+        {
+            throw new NotImplementedException();
         }
     }
 }

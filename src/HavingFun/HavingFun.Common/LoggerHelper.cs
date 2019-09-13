@@ -29,6 +29,16 @@ namespace HavingFun.Common
             _logger.Warn(msg);
         }
 
+        public void Warn(Exception exc)
+        {
+            _logger.Warn(exc);
+        }
+
+        public void Warn(Exception exc, string msg)
+        {
+            _logger.Warn(exc, msg);
+        }
+
         public void Error(string msg)
         {
             _logger.Error(msg);

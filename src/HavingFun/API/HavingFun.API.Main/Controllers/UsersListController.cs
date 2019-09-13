@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
+using HavingFun.API.Common;
 
 namespace HavingFun.API.Main.Controllers
 {
@@ -28,13 +29,12 @@ namespace HavingFun.API.Main.Controllers
         [HttpGet]
         public IActionResult GetAll(int pageSize, int pageNumber)
         {
-            var requiredClaim = this.HttpContext.User.Claims.FirstOrDefault(x => x.Type == CustomClaims.CanSeeUsersList);
-            if (requiredClaim == null || requiredClaim.Value != ClaimsDefaultValues.Allow)
-            {
+            if (!Request.UserHasRequiredPermissions(CustomClaims.CanSeeUsersList))
                 return Forbid();
-            }
 
-            var users = _userService.GetPage(pageSize, pageNumber);
+            var query = Request.ToQuery(new PageableQueryParameters() { PageNumber = pageNumber, PageSize = pageSize });
+
+            var users = _userService.GetPage(query);
             return Ok(users);
         }
     }
