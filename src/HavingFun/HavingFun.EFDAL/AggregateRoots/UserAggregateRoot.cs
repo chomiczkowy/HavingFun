@@ -17,7 +17,9 @@ namespace HavingFun.EFDAL.AggregateRoots
                 FirstName = userModel.FirstName,
                 LastName = userModel.LastName,
                 PasswordHash = passwordHasher.HashPassword(userModel.Password),
-                Username = userModel.Username
+                Username = userModel.Username,
+                EmailAddress = userModel.EmailAddress,
+                IsActivated = false
             };
 
             if (userModel.Claims != null)

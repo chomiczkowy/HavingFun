@@ -12,5 +12,6 @@ namespace HavingFun.Common.Interfaces.BLL
         int? Create(Command<EditUserModel> userModel);
         UserModel GetById(Query<int> query);
         object Update(Command<EditUserModel> cmd);
+        UserModel GetByName(Query<string> query);
     }
 }

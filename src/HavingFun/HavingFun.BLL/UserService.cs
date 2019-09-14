@@ -51,11 +51,6 @@ namespace HavingFun.BLL
             return userAggregate.AddNew(cmd.Data, _passwordHasher);
         }
 
-        public UserModel GetById(int id)
-        {
-            return _queryContainer.UserQueryRepository.GetById<UserModel>(id);
-        }
-
         public UserModel GetById(Query<int> query)
         {
             return _queryContainer.UserQueryRepository.GetById<UserModel>(query.Data);
@@ -64,6 +59,11 @@ namespace HavingFun.BLL
         public object Update(Command<EditUserModel> cmd)
         {
             throw new NotImplementedException();
+        }
+
+        public UserModel GetByName(Query<string> query)
+        {
+            return _queryContainer.UserQueryRepository.GetByUserName<UserModel>(query.Data);
         }
     }
 }

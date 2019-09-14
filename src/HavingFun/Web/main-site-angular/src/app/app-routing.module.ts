@@ -4,6 +4,8 @@ import { UsersListComponent } from './features/users/users-list/users-list.compo
 import { LoginComponent } from './features/login/login.component';
 import { AuthGuard } from './infrastructure/auth.guard';
 import { InsufficientPermissionsComponent } from './features/error-pages/insufficient-permissions/insufficient-permissions.component';
+import { UserRegisteredActivationRequiredComponent } from './features/users/user-registered-activation-required/user-registered-activation-required.component';
+import { RegisterUserComponent } from './features/users/register-user/register-user.component';
 
 const routes: Routes = [
   {
@@ -14,6 +16,14 @@ const routes: Routes = [
   {
     path:'login',
     component: LoginComponent
+  },
+  {
+    path:'user/activationRequired',
+    component: UserRegisteredActivationRequiredComponent
+  },
+  {
+    path:'register',
+    component: RegisterUserComponent
   },
   {
     path:'error/insufficient-permissions',

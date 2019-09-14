@@ -1,0 +1,74 @@
+<form [formGroup]="registerUserForm"
+    (ngSubmit)="onSubmit()" 
+    novalidate>
+    <div class="col-md-6">
+            <div class="col-md-12">
+                    <div class="col-md-4">
+                        <label>First name:</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" 
+                                pInputText 
+                                formControlName="firstName" 
+                                required/>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                        <div class="col-md-4">
+                            <label>Last name:</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" 
+                                    pInputText 
+                                    formControlName="lastName" 
+                                    required/>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                            <div class="col-md-4">
+                                <label>Email address</label>
+                            </div>
+                            <div class="col-md-8">
+                                <input type="email" 
+                                        pInputText 
+                                        formControlName="emailAddress" 
+                                        required/>
+                            </div>
+                        </div>
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <label>Username</label>
+            </div>
+            <div class="col-md-8">
+                <input type="text" 
+                        pInputText 
+                        formControlName="username" 
+                        required/>
+                        <div *ngIf="registerUserForm.get('username').status === 'PENDING'">
+                                Checking...
+                              </div>
+                              <div *ngIf="registerUserForm.get('username').status === 'VALID'">
+                                Username is available!
+                              </div>
+                            
+                              <div *ngIf="registerUserForm.get('username').errors && registerUserForm.get('username').errors.emailTaken">
+                                😢 Oh no, this Username is already taken!
+                              </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <label>Password</label>
+            </div>
+            <div class="col-md-8">
+                <input type="password"  
+                        name="password" 
+                        pInputText 
+                        formControlName="password" 
+                        required/>
+            </div>
+        </div>
+        <button pButton type="submit" label="Register" class="ui-button-primary"></button>
+        <p-progressSpinner *ngIf="duringSave"></p-progressSpinner>
+    </div>
+  </form>

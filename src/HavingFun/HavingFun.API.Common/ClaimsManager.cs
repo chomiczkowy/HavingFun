@@ -57,24 +57,30 @@ namespace HavingFun.API.Common
             return boolVal;
         }
 
-        public static Command<T> ToCommand<T>(this HttpRequest httpRequest, T model)
+        public static Command<T> ToCommand<T>(this HttpRequest httpRequest, T model, bool isAnonymous = false)
         {
             var command = new Command<T>(model);
-            command.ExecutingUserId = GetIntClaimValue(httpRequest, CustomClaims.UserId);
+            if (!isAnonymous)
+            {
+                command.ExecutingUserId = GetIntClaimValue(httpRequest, CustomClaims.UserId);
+            }
             return command;
         }
 
-        public static Query<T> ToQuery<T>(this HttpRequest httpRequest, T model)
+        public static Query<T> ToQuery<T>(this HttpRequest httpRequest, T model, bool isAnonymous = false)
         {
             var query = new Query<T>(model);
-            query.ExecutingUserId = GetIntClaimValue(httpRequest, CustomClaims.UserId);
+            if (!isAnonymous)
+            {
+                query.ExecutingUserId = GetIntClaimValue(httpRequest, CustomClaims.UserId);
+            }
             return query;
         }
 
         public static bool UserHasRequiredPermissions(this HttpRequest request, params string[] sufficientClaims)
         {
             var userClaims = request.HttpContext.User.Claims.Where(x => sufficientClaims.Contains(x.Type)).ToList();
-            foreach(var userClaim in userClaims)
+            foreach (var userClaim in userClaims)
             {
                 if (ConvertClaimToBool(userClaim.Type, userClaim.Value))
                     return true;

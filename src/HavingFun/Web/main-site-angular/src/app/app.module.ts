@@ -14,17 +14,22 @@ import {ButtonModule} from 'primeng/button';
 import {TableModule} from 'primeng/table';
 import {InputTextModule} from 'primeng/inputtext';
 import {PaginatorModule} from 'primeng/paginator';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 import { AuthGuard } from './infrastructure/auth.guard';
 import { UnauthorizedResponseInterceptor } from './infrastructure/unauthorized-response.interceptor';
 import { InsufficientPermissionsComponent } from './features/error-pages/insufficient-permissions/insufficient-permissions.component';
+import { RegisterUserComponent } from './features/users/register-user/register-user.component';
+import { UserRegisteredActivationRequiredComponent } from './features/users/user-registered-activation-required/user-registered-activation-required.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     UsersListComponent,
-    InsufficientPermissionsComponent
+    InsufficientPermissionsComponent,
+    RegisterUserComponent,
+    UserRegisteredActivationRequiredComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +44,8 @@ import { InsufficientPermissionsComponent } from './features/error-pages/insuffi
     ButtonModule,
     TableModule,
     InputTextModule,
-    PaginatorModule
+    PaginatorModule,
+    ProgressSpinnerModule
   ],
   providers: [
     {

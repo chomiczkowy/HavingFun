@@ -36,7 +36,7 @@ namespace HavingFun.API.Main.Controllers
         public IActionResult Register([FromBody]EditUserModel userModel)
         {
 
-            var id = _userService.Create(new Command<EditUserModel>(userModel));
+            var id = _userService.Create(Request.ToCommand<EditUserModel>(userModel, true));
             return Ok(id);
         }
 

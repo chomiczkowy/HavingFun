@@ -2,15 +2,17 @@
 using HavingFun.EFDAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace HavingFun.EFDAL.Migrations
 {
     [DbContext(typeof(MainDBContext))]
-    partial class MainDBContextModelSnapshot : ModelSnapshot
+    [Migration("20190913234742_AddedEmailAddressField")]
+    partial class AddedEmailAddressField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,8 +63,6 @@ namespace HavingFun.EFDAL.Migrations
 
                     b.Property<string>("FirstName")
                         .HasMaxLength(256);
-
-                    b.Property<bool>("IsActivated");
 
                     b.Property<string>("LastName")
                         .HasMaxLength(256);

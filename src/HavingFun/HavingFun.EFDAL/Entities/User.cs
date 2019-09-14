@@ -7,7 +7,7 @@ using System.Text;
 
 namespace HavingFun.EFDAL.Entities
 {
-    [Table("Users",Schema ="schUsers")]
+    [Table("Users", Schema = "schUsers")]
     public class User
     {
         public User()
@@ -29,6 +29,13 @@ namespace HavingFun.EFDAL.Entities
         [Required]
         [StringLength(256)]
         public string Username { get; set; }
+
+        [Required]
+        [StringLength(256)]
+        public string EmailAddress { get; set; }
+
+        [Required]
+        public bool IsActivated { get; set; }
 
         [Required]
         [StringLength(64)]

@@ -12,7 +12,7 @@ namespace HavingFun.Common.Models
         }
 
         public T Data { get; private set; }
-        public int ExecutingUserId { get; set; }
+        public int? ExecutingUserId { get; set; }
     }
 
     public class Query<T>
@@ -23,6 +23,6 @@ namespace HavingFun.Common.Models
         }
 
         public T Data { get; private set; }
-        public int ExecutingUserId { get; set; }
+        public int? ExecutingUserId { get; set; }
     }
 }

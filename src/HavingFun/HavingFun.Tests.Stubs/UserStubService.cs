@@ -91,5 +91,10 @@ namespace HavingFun.Tests.Stubs
         {
             throw new NotImplementedException();
         }
+
+        public UserModel GetByName(Query<string> query)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
