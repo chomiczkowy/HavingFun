@@ -16,6 +16,7 @@ using HavingFun.Common.Exceptions;
 
 namespace HavingFun.API.Main.Controllers
 {
+    [ApiVersion("1.0")]
     [Route("api/user")]
     [ApiController]
     [Authorize]

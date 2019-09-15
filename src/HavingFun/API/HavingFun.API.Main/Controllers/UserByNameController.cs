@@ -1,17 +1,10 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using HavingFun.Common.Consts;
-using HavingFun.Common.Interfaces.BLL;
-using HavingFun.Common.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using HavingFun.Common.Interfaces.BLL;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Primitives;
 using HavingFun.API.Common;
 
 namespace HavingFun.API.Main.Controllers
 {
+    [ApiVersion("1.0")]
     [Route("api/userByName")]
     [ApiController]
     public class UserByNameController : ControllerBase
