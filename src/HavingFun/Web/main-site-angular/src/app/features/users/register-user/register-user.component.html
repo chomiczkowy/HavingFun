@@ -46,14 +46,13 @@
                         required/>
                         <div *ngIf="registerUserForm.get('username').status === 'PENDING'">
                                 Checking...
-                              </div>
-                              <div *ngIf="registerUserForm.get('username').status === 'VALID'">
-                                Username is available!
-                              </div>
-                            
-                              <div *ngIf="registerUserForm.get('username').errors && registerUserForm.get('username').errors.emailTaken">
+                        </div>
+                        <div *ngIf="registerUserForm.get('username').status === 'VALID'" class="validation-message-ok">
+                             Username is available!
+                        </div>    
+                        <div *ngIf="registerUserForm.get('username').errors && registerUserForm.get('username').errors.usernameTaken" class="validation-error">
                                 😢 Oh no, this Username is already taken!
-                              </div>
+                        </div>
             </div>
         </div>
         <div class="col-md-12">

@@ -3,12 +3,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { LoginUserModel } from '../models/users/login-user-model';
 import { EditUserModel } from '../models/users/edit-user-model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private apiUrl:string="https://localhost:44327/api/users";
   private loggedUserLocalStorageKey='having-fun-user';
 
   private loggedUser:EditUserModel = null;
@@ -28,7 +28,7 @@ export class AuthenticationService {
   }
 
   public authenticate(userModel:LoginUserModel): Subscription {
-    return this.http.post<EditUserModel>(this.apiUrl+"/authenticate", userModel)
+    return this.http.post<EditUserModel>(environment.loginApiUrl +"login", userModel)
       .subscribe((response)=>{
           this.loggedUser=response;
           localStorage.setItem(this.loggedUserLocalStorageKey, JSON.stringify(this.loggedUser));

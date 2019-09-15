@@ -6,7 +6,7 @@ export class ValidateUsernameNotTaken {
   static createValidator(userService: UserService) {
     return (control: AbstractControl) => {
       return userService.checkUsernameNotTaken(control.value).pipe(map(res => {
-        return res ? null : { emailTaken: true };
+        return res ? null : { usernameTaken: true };
       }));
     };
   }

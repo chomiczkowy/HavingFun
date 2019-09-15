@@ -10,7 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace HavingFun.API.Main.Configuration
+namespace HavingFun.API.Common
 {
     public static class ExceptionMiddlewareExtensions
     {

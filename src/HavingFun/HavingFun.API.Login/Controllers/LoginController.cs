@@ -12,7 +12,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
 using HavingFun.API.Common;
 
-namespace HavingFun.API.Main.Controllers
+namespace HavingFun.API.Login.Controllers
 {
     [Route("api/login")]
     [ApiController]
@@ -21,9 +21,9 @@ namespace HavingFun.API.Main.Controllers
     {
         private IUserService _userService;
         private ITokenProvider _tokenProvider;
-        private CustomSettings _appSettings;
+        private LoginApiSettings _appSettings;
 
-        public LoginController(IUserService userService, ITokenProvider tokenProvider, CustomSettings appSettings)
+        public LoginController(IUserService userService, ITokenProvider tokenProvider, LoginApiSettings appSettings)
         {
             _userService = userService;
             _tokenProvider = tokenProvider;
@@ -35,7 +35,7 @@ namespace HavingFun.API.Main.Controllers
         [HttpPost()]
         public IActionResult Authenticate([FromBody]UserLoginModel userParam)
         {
-            var cmd = Request.ToCommand(userParam);
+            var cmd = Request.ToCommand(userParam, true);
             var user = _userService.Authenticate(cmd);
 
             if (user == null)

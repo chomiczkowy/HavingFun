@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using HavingFun.API.Common;
-using HavingFun.API.Main.Configuration;
+using HavingFun.API.Login.Configuration;
 using HavingFun.Common;
-using HavingFun.Common.Interfaces.BLL;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,7 +21,7 @@ using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace HavingFun.API.Main
+namespace HavingFun.API.Login
 {
     public class Startup
     {
@@ -40,20 +39,20 @@ namespace HavingFun.API.Main
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // configure strongly typed settings objects
-            var customAppSettingsSection = Configuration.GetSection("CustomSettings").Get<MainApiSettings>();
+            var customAppSettingsSection = Configuration.GetSection("CustomSettings").Get<LoginApiSettings>();
             services.AddSingleton(customAppSettingsSection);
             var connectionStrings = Configuration.GetSection("ConnectionStrings").Get<ConnectionStrings>();
 
             // configure jwt authentication
             SetUpJWT(services, customAppSettingsSection);
             SetUpSwagger(services);
-            
+
             IdentityModelEventSource.ShowPII = true;
-           
+
             return ConfigureDI(services, connectionStrings);
         }
 
-        private static void SetUpJWT(IServiceCollection services, MainApiSettings appSettings)
+        private static void SetUpJWT(IServiceCollection services, LoginApiSettings appSettings)
         {
             var key = Encoding.ASCII.GetBytes(appSettings.JWTSecret);
 
@@ -83,7 +82,7 @@ namespace HavingFun.API.Main
                 c.SwaggerDoc("v1", new Info
                 {
                     Version = "v1",
-                    Title = "My API .NET Core Main API",
+                    Title = "My API .NET Core Login API",
                     Description = "Przykładowy opis",
                     TermsOfService = "None",
                     Contact = new Contact()
@@ -100,7 +99,7 @@ namespace HavingFun.API.Main
             var containerBuilder = new ContainerBuilder();
 
             containerBuilder.Properties["ConnectionStrings"] = connectionStrings;
-            containerBuilder.RegisterModule<MainApiDIModule>();
+            containerBuilder.RegisterModule<LoginApiDIModule>();
             containerBuilder.Populate(services);
 
             var container = containerBuilder.Build();

@@ -12,7 +12,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
 using HavingFun.API.Common;
 
-namespace HavingFun.API.Main.Controllers
+namespace HavingFun.API.Admin.Controllers
 {
     [Route("api/users")]
     [ApiController]
