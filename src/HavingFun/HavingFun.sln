@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HavingFun.API.Login", "Havi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HavingFun.API.Shop", "HavingFun.API.Shop\HavingFun.API.Shop.csproj", "{6443FEC0-6928-49F8-ADBB-47B3BB79E4FE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HavingFun.Tests.UnitTests", "HavingFun.Tests.UnitTests\HavingFun.Tests.UnitTests.csproj", "{EBFC307C-0BCC-4E20-AF3F-1C18FE2A59B8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{6443FEC0-6928-49F8-ADBB-47B3BB79E4FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6443FEC0-6928-49F8-ADBB-47B3BB79E4FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6443FEC0-6928-49F8-ADBB-47B3BB79E4FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBFC307C-0BCC-4E20-AF3F-1C18FE2A59B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBFC307C-0BCC-4E20-AF3F-1C18FE2A59B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBFC307C-0BCC-4E20-AF3F-1C18FE2A59B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBFC307C-0BCC-4E20-AF3F-1C18FE2A59B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,6 +96,7 @@ Global
 		{B5E72118-E092-48C4-B0E0-C05BE0B17AF2} = {140BBD44-29FD-4369-A860-E53EF771111A}
 		{DCAC606A-5108-48A6-8ECA-43FCC4F87C89} = {140BBD44-29FD-4369-A860-E53EF771111A}
 		{6443FEC0-6928-49F8-ADBB-47B3BB79E4FE} = {140BBD44-29FD-4369-A860-E53EF771111A}
+		{EBFC307C-0BCC-4E20-AF3F-1C18FE2A59B8} = {458DEB7E-8259-4D1E-8C8F-C76C33455691}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BB6E2E1F-AD94-4262-980A-01B816CCAB6E}
