@@ -23,7 +23,7 @@ namespace HavingFun.BLL
 
         public UserModel Authenticate(Command<UserLoginModel> cmd)
         {
-            var user = _queryContainer.UserQueryRepository.GetByUserName<UserModel>(cmd.Data.Username);
+            var user = _queryContainer.UserQueryRepository.GetByUserName(cmd.Data.Username);
 
             // return null if user not found
             if (user == null || user.PasswordHash != _passwordHasher.HashPassword(cmd.Data.Password))
@@ -34,7 +34,7 @@ namespace HavingFun.BLL
                 Username = user.Username,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Claims = new System.Security.Claims.Claim[0] //TODO
+                Claims = user.Claims.ToArray()
             };
         }
 
@@ -63,7 +63,7 @@ namespace HavingFun.BLL
 
         public UserModel GetByName(Query<string> query)
         {
-            return _queryContainer.UserQueryRepository.GetByUserName<UserModel>(query.Data);
+            return _queryContainer.UserQueryRepository.GetByUserName(query.Data);
         }
     }
 }
