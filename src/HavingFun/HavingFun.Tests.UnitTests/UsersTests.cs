@@ -26,7 +26,6 @@ namespace HavingFun.Tests.UnitTests
                 LastName = "bb",
                 EmailAddress = "cc@ddd.com",
                 PasswordHash = "abcdefgh",
-                Id = 4,
                 Username = testedUserName,
             });
             dbContext.SaveChanges();
@@ -59,7 +58,6 @@ namespace HavingFun.Tests.UnitTests
                 LastName = "bb",
                 EmailAddress = "cc@ddd.com",
                 PasswordHash = "abcdefgh",
-                Id = 4,
                 Username = alreadyAddedUserName,
             });
             dbContext.SaveChanges();

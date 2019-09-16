@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HavingFun.EFDAL.Migrations
 {
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,7 +16,7 @@ namespace HavingFun.EFDAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Type = table.Column<string>(maxLength: 256, nullable: false),
                     Value = table.Column<string>(maxLength: 1024, nullable: false)
                 },
@@ -31,7 +31,7 @@ namespace HavingFun.EFDAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(maxLength: 1024, nullable: false)
                 },
                 constraints: table =>
@@ -45,10 +45,12 @@ namespace HavingFun.EFDAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     FirstName = table.Column<string>(maxLength: 256, nullable: true),
                     LastName = table.Column<string>(maxLength: 256, nullable: true),
                     Username = table.Column<string>(maxLength: 256, nullable: false),
+                    EmailAddress = table.Column<string>(maxLength: 256, nullable: false),
+                    IsActivated = table.Column<bool>(nullable: false),
                     PasswordHash = table.Column<string>(maxLength: 64, nullable: false)
                 },
                 constraints: table =>
@@ -109,6 +111,30 @@ namespace HavingFun.EFDAL.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                schema: "schUsers",
+                table: "Claims",
+                columns: new[] { "Id", "Type", "Value" },
+                values: new object[] { 1, "CanSeeUsersList", "Allow" });
+
+            migrationBuilder.InsertData(
+                schema: "schUsers",
+                table: "Users",
+                columns: new[] { "Id", "EmailAddress", "FirstName", "IsActivated", "LastName", "PasswordHash", "Username" },
+                values: new object[] { 1, "karolas-borys@wp.pl", "Karol", true, "LatkaAdmin", "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918", "KarolAdmin" });
+
+            migrationBuilder.InsertData(
+                schema: "schUsers",
+                table: "Users",
+                columns: new[] { "Id", "EmailAddress", "FirstName", "IsActivated", "LastName", "PasswordHash", "Username" },
+                values: new object[] { 2, "karolas-borys2@wp.pl", "Karol", true, "LatkaRegular", "effcc54ba75fb84cca1aadb6cae302e84c29dcb550e6e19e99c4916b89c69e0b", "Karol" });
+
+            migrationBuilder.InsertData(
+                schema: "schUsers",
+                table: "UserClaims",
+                columns: new[] { "ClaimId", "UserId" },
+                values: new object[] { 1, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserClaims_UserId",

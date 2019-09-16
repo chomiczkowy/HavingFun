@@ -2,28 +2,29 @@
 using HavingFun.EFDAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace HavingFun.EFDAL.Migrations
 {
     [DbContext(typeof(MainDBContext))]
-    [Migration("20190910221236_init")]
-    partial class init
+    [Migration("20190916182109_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("HavingFun.EFDAL.Entities.Claim", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Type")
                         .IsRequired()
@@ -36,12 +37,21 @@ namespace HavingFun.EFDAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Claims","schUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Type = "CanSeeUsersList",
+                            Value = "Allow"
+                        });
                 });
 
             modelBuilder.Entity("HavingFun.EFDAL.Entities.Role", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -55,10 +65,17 @@ namespace HavingFun.EFDAL.Migrations
             modelBuilder.Entity("HavingFun.EFDAL.Entities.User", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("EmailAddress")
+                        .IsRequired()
+                        .HasMaxLength(256);
 
                     b.Property<string>("FirstName")
                         .HasMaxLength(256);
+
+                    b.Property<bool>("IsActivated");
 
                     b.Property<string>("LastName")
                         .HasMaxLength(256);
@@ -74,6 +91,28 @@ namespace HavingFun.EFDAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users","schUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            EmailAddress = "karolas-borys@wp.pl",
+                            FirstName = "Karol",
+                            IsActivated = true,
+                            LastName = "LatkaAdmin",
+                            PasswordHash = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
+                            Username = "KarolAdmin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            EmailAddress = "karolas-borys2@wp.pl",
+                            FirstName = "Karol",
+                            IsActivated = true,
+                            LastName = "LatkaRegular",
+                            PasswordHash = "effcc54ba75fb84cca1aadb6cae302e84c29dcb550e6e19e99c4916b89c69e0b",
+                            Username = "Karol"
+                        });
                 });
 
             modelBuilder.Entity("HavingFun.EFDAL.Entities.UserClaims", b =>
@@ -87,6 +126,13 @@ namespace HavingFun.EFDAL.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserClaims","schUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            ClaimId = 1,
+                            UserId = 1
+                        });
                 });
 
             modelBuilder.Entity("HavingFun.EFDAL.Entities.UserRoles", b =>
