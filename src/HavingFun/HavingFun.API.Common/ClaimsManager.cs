@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 
 namespace HavingFun.API.Common
@@ -87,6 +88,11 @@ namespace HavingFun.API.Common
             }
 
             return false;
+        }
+
+        public static string GetUsername(this ClaimsPrincipal principal)
+        {
+            return principal != null && principal.HasClaim(x => x.Type == CustomClaims.Username) ? principal.FindFirst(x => x.Type == CustomClaims.Username).Value : null;
         }
     }
 }

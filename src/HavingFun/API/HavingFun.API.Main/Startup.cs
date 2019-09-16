@@ -20,6 +20,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
+using NLog.Web;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace HavingFun.API.Main

@@ -36,14 +36,18 @@ namespace HavingFun.API.Main.Controllers
         [HttpPut]
         public IActionResult Register([FromBody]EditUserModel userModel)
         {
+            _logger.Trace("New user registration attempt: " + userModel.Username);
 
             var id = _userService.Create(Request.ToCommand(userModel, true));
+            _logger.Info("New user registered: " + userModel.Username);
+
             return Ok(id);
         }
 
         [HttpPost]
         public IActionResult Update([FromBody]EditUserModel userModel)
         {
+            _logger.Trace("User update attempt: " + userModel.Username);
             Command<EditUserModel> cmd = null;
             try
             {
@@ -61,6 +65,8 @@ namespace HavingFun.API.Main.Controllers
             }
 
             var id = _userService.Update(cmd);
+
+            _logger.Info("User update completed: " + userModel.Username);
             return Ok(id);
         }
 

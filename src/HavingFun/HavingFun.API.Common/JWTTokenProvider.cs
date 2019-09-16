@@ -19,6 +19,7 @@ namespace HavingFun.API.Common
             var key = Encoding.ASCII.GetBytes(secret);
             var claimsList = user.Claims.ToList();
             claimsList.Add(new Claim(CustomClaims.UserId, user.Id.ToString()));
+            claimsList.Add(new Claim(CustomClaims.Username, user.Username));
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {

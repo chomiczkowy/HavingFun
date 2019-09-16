@@ -34,7 +34,9 @@ namespace HavingFun.BLL
                 Username = user.Username,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Claims = user.Claims.ToArray()
+                Claims = user.Claims.ToArray(),
+                Id = user.Id,
+                EmailAddress = user.EmailAddress
             };
         }
 
