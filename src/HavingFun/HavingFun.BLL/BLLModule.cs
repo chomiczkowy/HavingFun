@@ -14,7 +14,7 @@ namespace HavingFun.BLL
         {
             var connectionStrings = builder.Properties["ConnectionStrings"] as ConnectionStrings;
             var optionsBuilder = new DbContextOptionsBuilder<MainDBContext>();
-            optionsBuilder.UseNpgsql(connectionStrings.MainDb);
+            optionsBuilder.UseSqlServer(connectionStrings.MainDb);
 
             builder.Register((componentContext) => optionsBuilder.Options);
             builder.RegisterModule<EFDALModule>();
