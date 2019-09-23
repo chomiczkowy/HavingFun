@@ -22,6 +22,10 @@ namespace HavingFun.EFDAL.Context
         public DbSet<Role> Roles { get; set; }
         public DbSet<Claim> Claims { get; set; }
 
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductCategory> ProductCategories { get; set; }
+        public DbSet<Attachment> Attachments { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UserClaims>()
@@ -29,6 +33,14 @@ namespace HavingFun.EFDAL.Context
 
             modelBuilder.Entity<UserRoles>()
                 .HasKey(x => new { x.RoleId, x.UserId });
+
+            modelBuilder.Entity<ProductAttachment>()
+               .HasKey(x => new { x.AttachmentId, x.ProductId });
+
+            modelBuilder.Entity<ProductCategory>()
+                .HasOne(x => x.ParentCategory)
+                .WithMany(x => x.ChildCategories)
+                .HasForeignKey(x => x.ParentCategoryId);
 
             var firstUser = new EFDAL.Entities.User()
             {

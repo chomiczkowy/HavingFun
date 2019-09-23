@@ -21,6 +21,10 @@ import { UnauthorizedResponseInterceptor } from './infrastructure/unauthorized-r
 import { InsufficientPermissionsComponent } from './features/error-pages/insufficient-permissions/insufficient-permissions.component';
 import { RegisterUserComponent } from './features/users/register-user/register-user.component';
 import { UserRegisteredActivationRequiredComponent } from './features/users/user-registered-activation-required/user-registered-activation-required.component';
+import { ShopMainComponent } from './features/shop/shop-main/shop-main.component';
+import { ProductsListComponent } from './features/shop/products-list/products-list.component';
+import { ProductViewComponent } from './features/shop/product-view/product-view.component';
+import { ShopParentComponent } from './features/shop/shop-parent/shop-parent.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,11 @@ import { UserRegisteredActivationRequiredComponent } from './features/users/user
     UsersListComponent,
     InsufficientPermissionsComponent,
     RegisterUserComponent,
-    UserRegisteredActivationRequiredComponent
+    UserRegisteredActivationRequiredComponent,
+    ShopMainComponent,
+    ProductsListComponent,
+    ProductViewComponent,
+    ShopParentComponent
   ],
   imports: [
     BrowserModule,

@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HavingFun.API.Shop.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/productCategories")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class ProductCategoryController : ControllerBase
     {
         // GET api/values
         [HttpGet]
