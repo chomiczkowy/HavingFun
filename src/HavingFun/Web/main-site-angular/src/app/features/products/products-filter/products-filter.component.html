@@ -1,8 +1,8 @@
 Choose categories:
 <p-tree [value]="productCategories" 
-        electionMode="checkbox" 
+        selectionMode="checkbox" 
         [(selection)]="selectedProductCategories"           
         [propagateSelectionUp]="false" 
         [propagateSelectionDown]="true"
-        (onNodeSelect)="nodeSelect($event)"></p-tree>
-
+        (onNodeSelect)="nodeSelect($event)"
+        (onNodeUnselect)="nodeSelect($event)"></p-tree>

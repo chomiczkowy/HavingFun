@@ -28,20 +28,20 @@ namespace HavingFun.API.Shop.Controllers
                             Label="Kategoria 2_1"
                         },
                         new ProductCategoryTreeItem(){
-                            Data=3,
+                            Data=4,
                             Label="Kategoria 2_2"
                         },
                         new ProductCategoryTreeItem(){
-                            Data=3,
+                            Data=5,
                             Label="Kategoria 2_3",
                             Children=new ProductCategoryTreeItem[]
                             {
                                  new ProductCategoryTreeItem(){
-                                    Data=3,
+                                    Data=6,
                                     Label="Kategoria 2_3_1"
                                 },
                                 new ProductCategoryTreeItem(){
-                                    Data=3,
+                                    Data=7,
                                     Label="Kategoria 2_3_2"
                                 }
                             }

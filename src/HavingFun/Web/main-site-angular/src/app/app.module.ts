@@ -22,10 +22,10 @@ import { UnauthorizedResponseInterceptor } from './infrastructure/unauthorized-r
 import { InsufficientPermissionsComponent } from './features/error-pages/insufficient-permissions/insufficient-permissions.component';
 import { RegisterUserComponent } from './features/users/register-user/register-user.component';
 import { UserRegisteredActivationRequiredComponent } from './features/users/user-registered-activation-required/user-registered-activation-required.component';
-import { ShopMainComponent } from './features/shop/shop-main/shop-main.component';
-import { ProductsListComponent } from './features/shop/products-list/products-list.component';
-import { ProductViewComponent } from './features/shop/product-view/product-view.component';
-import { ShopParentComponent } from './features/shop/shop-parent/shop-parent.component';
+import { ProductsListComponent } from './features/products/products-list/products-list.component';
+import { ProductViewComponent } from './features/products/product-view/product-view.component';
+import { ProductsGridComponent } from './features/products/products-grid/products-grid.component';
+import { ProductsFilterComponent } from './features/products/products-filter/products-filter.component';
 
 @NgModule({
   declarations: [
@@ -35,10 +35,10 @@ import { ShopParentComponent } from './features/shop/shop-parent/shop-parent.com
     InsufficientPermissionsComponent,
     RegisterUserComponent,
     UserRegisteredActivationRequiredComponent,
-    ShopMainComponent,
     ProductsListComponent,
     ProductViewComponent,
-    ShopParentComponent
+    ProductsGridComponent,
+    ProductsFilterComponent
   ],
   imports: [
     BrowserModule,

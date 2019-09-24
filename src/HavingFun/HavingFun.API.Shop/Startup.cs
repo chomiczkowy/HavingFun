@@ -19,6 +19,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
+using System.Text;
+using HavingFun.API.Shop.Configuration;
 
 namespace HavingFun.API.Shop
 {
