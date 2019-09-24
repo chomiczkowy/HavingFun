@@ -15,6 +15,7 @@ import {TableModule} from 'primeng/table';
 import {InputTextModule} from 'primeng/inputtext';
 import {PaginatorModule} from 'primeng/paginator';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import {TreeModule} from 'primeng/tree';
 
 import { AuthGuard } from './infrastructure/auth.guard';
 import { UnauthorizedResponseInterceptor } from './infrastructure/unauthorized-response.interceptor';
@@ -53,7 +54,8 @@ import { ShopParentComponent } from './features/shop/shop-parent/shop-parent.com
     TableModule,
     InputTextModule,
     PaginatorModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    TreeModule
   ],
   providers: [
     {

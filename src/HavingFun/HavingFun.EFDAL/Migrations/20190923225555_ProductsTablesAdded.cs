@@ -46,7 +46,8 @@ namespace HavingFun.EFDAL.Migrations
                         principalSchema: "schProducts",
                         principalTable: "ProductCategory",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction,
+                        onUpdate: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -70,14 +71,14 @@ namespace HavingFun.EFDAL.Migrations
                         principalSchema: "schProducts",
                         principalTable: "ProductCategory",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Product_Attachment_ThumbnailId",
                         column: x => x.ThumbnailId,
                         principalSchema: "schProducts",
                         principalTable: "Attachment",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(

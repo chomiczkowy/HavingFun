@@ -1,1 +1,8 @@
-<p>shop-main works!</p>
+Choose categories:
+<p-tree [value]="productCategories" 
+        electionMode="checkbox" 
+        [(selection)]="selectedProductCategories"           
+        [propagateSelectionUp]="false" 
+        [propagateSelectionDown]="true"
+        (onNodeSelect)="nodeSelect($event)"></p-tree>
+
