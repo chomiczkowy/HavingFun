@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ProductListSearchFilter } from 'src/app/models/products/product-list-search-filter';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { PageableQuery } from 'src/app/models/queries/pageable-query';
 
 @Component({
   selector: 'app-products-grid',
@@ -9,8 +9,12 @@ import { ProductListSearchFilter } from 'src/app/models/products/product-list-se
 export class ProductsGridComponent implements OnInit {
 
   @Input()
-  private filter: ProductListSearchFilter;
+  private query: PageableQuery;
   
+  
+  @Output()
+  private queryChanged:EventEmitter<PageableQuery>=new EventEmitter<PageableQuery>();
+
   constructor() { }
 
   ngOnInit() {

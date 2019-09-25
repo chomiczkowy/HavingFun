@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HavingFun.Common.Models
 {
-    public class PageableQueryParameters
+    public class PageableQuery: SortableQuery
     {
         public int PageNumber { get; set; }
         public int PageSize { get; set; }

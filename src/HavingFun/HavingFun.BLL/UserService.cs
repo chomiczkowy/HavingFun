@@ -41,7 +41,7 @@ namespace HavingFun.BLL
         }
 
 
-        public PageableQueryResult<UserModel> GetPage(Query<PageableQueryParameters> query)
+        public PageableQueryResult<UserModel> GetPage(Query<PageableQuery> query)
         {
             var result = _queryContainer.UserQueryRepository.GetPage<UserModel>(query.Data.PageSize, query.Data.PageNumber);
             return result;

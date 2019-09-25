@@ -16,33 +16,33 @@ namespace HavingFun.API.Shop.Controllers
         {
             return new ProductCategoryTreeItem[]
             {
-                new ProductCategoryTreeItem(){Data=1, Label="Kategoria 1"},
+                new ProductCategoryTreeItem(){Data=1, Label="Office stuff"},
                 new ProductCategoryTreeItem()
                 {
-                    Data=2,
-                    Label="Kategoria 2",
+                    Data=200,
+                    Label="Computer parts",
                     Children=new ProductCategoryTreeItem[]
                     {
                         new ProductCategoryTreeItem(){
+                            Data=2,
+                            Label="Hard drives"
+                        },
+                        new ProductCategoryTreeItem(){
                             Data=3,
-                            Label="Kategoria 2_1"
+                            Label="Graphic cards"
                         },
                         new ProductCategoryTreeItem(){
-                            Data=4,
-                            Label="Kategoria 2_2"
-                        },
-                        new ProductCategoryTreeItem(){
-                            Data=5,
-                            Label="Kategoria 2_3",
+                            Data=400,
+                            Label="CPU",
                             Children=new ProductCategoryTreeItem[]
                             {
                                  new ProductCategoryTreeItem(){
-                                    Data=6,
-                                    Label="Kategoria 2_3_1"
+                                    Data=4,
+                                    Label="Intel"
                                 },
                                 new ProductCategoryTreeItem(){
-                                    Data=7,
-                                    Label="Kategoria 2_3_2"
+                                    Data=5,
+                                    Label="AMD"
                                 }
                             }
                         },

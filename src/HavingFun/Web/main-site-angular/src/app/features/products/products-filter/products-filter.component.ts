@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ProductCategoryTreeItem } from 'src/app/models/products/product-category-tree-item';
 import { ProductService } from 'src/app/services/product.service';
 import { Router } from '@angular/router';
-import { ProductListSearchFilter } from 'src/app/models/products/product-list-search-filter';
+import { ProductListSearchQuery } from 'src/app/models/products/product-list-search-query';
 
 @Component({
   selector: 'app-products-filter',
@@ -11,10 +11,10 @@ import { ProductListSearchFilter } from 'src/app/models/products/product-list-se
 })
 export class ProductsFilterComponent implements OnInit {
   @Input()
-  private filter:ProductListSearchFilter;
+  private query:ProductListSearchQuery;
 
   @Output()
-  private filterChanged:EventEmitter<ProductListSearchFilter>=new EventEmitter<ProductListSearchFilter>();
+  private queryChanged:EventEmitter<ProductListSearchQuery>=new EventEmitter<ProductListSearchQuery>();
 
   private productCategories:ProductCategoryTreeItem[]=[];
   private selectedProductCategories:ProductCategoryTreeItem[]=[];
@@ -46,8 +46,8 @@ setUpIcons(category:ProductCategoryTreeItem){
 nodeSelect(event) {
     console.log(event);
     var selectedProductCategoriesIds=this.selectedProductCategories.map(x=> x.data);
-    this.filter.categoriesIds=selectedProductCategoriesIds;
-    this.filterChanged.emit(this.filter);
+    this.query.categoriesIds=selectedProductCategoriesIds;
+    this.queryChanged.emit(this.query);
 }
 
 }

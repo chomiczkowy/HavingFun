@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HavingFun.Common.Models;
+using HavingFun.Common.Models.Products;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HavingFun.API.Shop.Controllers
@@ -12,34 +14,34 @@ namespace HavingFun.API.Shop.Controllers
     {
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<PageableQueryResult<ProductQueryItem>> Get(ProductListSearchQuery query)
         {
-            return new string[] { "value1", "value2" };
-        }
+            const int itemsPerCategory = 10;
+            string[] words = new[] { "Office thing", "SSD Hard drive", "GPU Nvidia", "Intel CPU", "AMD CPU" };
+            var items = new List<ProductQueryItem>();
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return "value";
-        }
+            for (int i = 1; i <= 5; i++)
+            {
+                for (int j = 0; j < itemsPerCategory; j++)
+                {
+                    items.Add(new ProductQueryItem()
+                    {
+                        Id = i * 1000 + j,
+                        Name = $"{words[i - 1]} {j + 1}",
+                        Description = $"{words[i - 1]} - the very best in the world {j + 1}"
+                    });
+                }
+            }
 
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
+            var categoriesIds = query.CategoriesIds;
+            var allItemsFiltered = items.Where(x => categoriesIds.Contains(x.Id / 1000)).ToArray();
+            var resultItems = allItemsFiltered.Skip(query.PageNumber * query.PageSize).Take(query.PageSize).ToArray();
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return new PageableQueryResult<ProductQueryItem>()
+            {
+                AllItemsCount = allItemsFiltered.Length,
+                Items = resultItems
+            };
         }
     }
 }

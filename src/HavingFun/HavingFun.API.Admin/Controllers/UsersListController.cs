@@ -38,7 +38,7 @@ namespace HavingFun.API.Admin.Controllers
                 return Forbid();
             }
 
-            var query = Request.ToQuery(new PageableQueryParameters() { PageNumber = pageNumber, PageSize = pageSize });
+            var query = Request.ToQuery(new PageableQuery() { PageNumber = pageNumber, PageSize = pageSize });
 
             var users = _userService.GetPage(query);
             _logger.Info($"Users list page {pageNumber} with page size {pageSize} served for user { User.GetUsername()}");

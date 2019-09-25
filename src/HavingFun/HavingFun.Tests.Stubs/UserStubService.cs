@@ -71,7 +71,7 @@ namespace HavingFun.Tests.Stubs
             throw new NotImplementedException();
         }
 
-        public PageableQueryResult<UserModel> GetPage(Query<PageableQueryParameters> query)
+        public PageableQueryResult<UserModel> GetPage(Query<PageableQuery> query)
         {
             // return users without passwords
             return new PageableQueryResult<UserModel>()
