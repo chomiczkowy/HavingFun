@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { PageableQueryResult } from '../models/pageable-query-result';
 import { DisplayUserModel } from '../models/users/display-user-model';
 import { EditUserModel } from '../models/users/edit-user-model';
 import { map } from 'rxjs/operators';
 import { environment } from './../../environments/environment'
+import { PageableQueryResult } from '../models/queries/pageable-query-result';
 
 @Injectable({
   providedIn: 'root'

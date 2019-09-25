@@ -19,10 +19,16 @@ export class ProductService {
   }
 
   findByQuery(query:ProductListSearchQuery){
-    var params:HttpParams=new HttpParams();
-    for(let key in query){
-      params.set(key.toString(), query[key]);
-    }
+    const params:HttpParams=new HttpParams({
+      fromObject:{
+        categoriesIds: query.categoriesIds.map(x=>x.toString()),
+        pageSize: query.pageSize.toString(),
+        pageNumber: query.pageNumber.toString(),
+        sortField:query.sortField,
+        isDescending:query.isDescending.toString()
+
+      }
+    });
 
     return this.http.get<PageableQueryResult<ProductQueryItem>>(environment.shopApiUrl+"products", {
       params: params

@@ -14,7 +14,7 @@ namespace HavingFun.API.Shop.Controllers
     {
         // GET api/values
         [HttpGet]
-        public ActionResult<PageableQueryResult<ProductQueryItem>> Get(ProductListSearchQuery query)
+        public ActionResult<PageableQueryResult<ProductQueryItem>> Get([FromQuery]ProductListSearchQuery query)
         {
             const int itemsPerCategory = 10;
             string[] words = new[] { "Office thing", "SSD Hard drive", "GPU Nvidia", "Intel CPU", "AMD CPU" };
