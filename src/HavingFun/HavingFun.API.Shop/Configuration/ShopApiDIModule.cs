@@ -3,6 +3,7 @@ using HavingFun.API.Common;
 using HavingFun.BLL;
 using HavingFun.Common;
 using HavingFun.Common.Interfaces.BLL;
+using HavingFun.Tests.Stubs;
 using NLog;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace HavingFun.API.Shop.Configuration
 
             builder.Register(c => logFactory.GetCurrentClassLogger()).As<Logger>();
             builder.RegisterType<LoggerHelper>().AsSelf();
+            builder.RegisterType<ProductStubService>().As<IProductService>().SingleInstance();
 
             builder.RegisterModule<BLLModule>();
             builder.RegisterModule<ApiCommonDIModule>();

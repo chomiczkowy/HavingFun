@@ -5,11 +5,13 @@ import { environment } from 'src/environments/environment';
 import { ProductListSearchQuery } from '../models/products/product-list-search-query';
 import { ProductQueryItem } from '../models/products/product-query-item';
 import { PageableQueryResult } from '../models/queries/pageable-query-result';
+import { ProductRichModel } from '../models/products/product-rich-model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
+  
 
   constructor(private http:HttpClient) { }
 
@@ -33,5 +35,9 @@ export class ProductService {
     return this.http.get<PageableQueryResult<ProductQueryItem>>(environment.shopApiUrl+"products", {
       params: params
     });
+  }
+
+  getProductById(productId: number) {
+    return this.http.get<ProductRichModel>(environment.shopApiUrl + "product/"+productId);
   }
 }

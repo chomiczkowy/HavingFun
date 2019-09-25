@@ -20,6 +20,7 @@
     <ProjectReference Include="..\HavingFun.API.Common\HavingFun.API.Common.csproj" />
     <ProjectReference Include="..\HavingFun.BLL\HavingFun.BLL.csproj" />
     <ProjectReference Include="..\HavingFun.Common\HavingFun.Common.csproj" />
+    <ProjectReference Include="..\HavingFun.Tests.Stubs\HavingFun.Tests.Stubs.csproj" />
   </ItemGroup>
 
   <ItemGroup>

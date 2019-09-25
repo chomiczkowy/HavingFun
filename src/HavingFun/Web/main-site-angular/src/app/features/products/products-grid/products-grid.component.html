@@ -9,15 +9,15 @@
     <p-table [value]="results.items">
       <ng-template pTemplate="header">
         <tr>
-          <th>Id</th>
           <th>Name</th>
           <th>Description</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-item>
         <tr>
-          <td>{{item.id}}</td>
-          <td>{{item.name}}</td>
+          <td>
+              <a [routerLink]="['/products', item.id]" routerLinkActive="active">{{item.name}}</a>
+          </td>
           <td>{{item.description}}</td>
         </tr>
       </ng-template>

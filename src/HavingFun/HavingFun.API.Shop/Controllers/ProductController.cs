@@ -11,26 +11,28 @@ using Newtonsoft.Json;
 
 namespace HavingFun.API.Shop.Controllers
 {
-    [Route("api/products")]
+    [Route("api/product")]
     [ApiController]
-    public class ProductsController : ControllerBase
+    public class ProductController : ControllerBase
     {
         private LoggerHelper _logger;
         private IProductService _productService;
 
-        public ProductsController(IProductService productService,
-                                  LoggerHelper logger)
+        public ProductController(IProductService productService, 
+                                LoggerHelper logger)
         {
             _logger = logger;
             _productService = productService;
         }
 
         // GET api/values
-        [HttpGet]
-        public ActionResult<PageableQueryResult<ProductQueryItem>> Get([FromQuery]ProductListSearchQuery query)
+        [HttpGet("{productId}")]
+        public ActionResult<ProductRichModel> Get(int productId)
         {
-            _logger.Info($"Getting product list with query: {Environment.NewLine}{JsonConvert.SerializeObject(query, Formatting.Indented)}");
-            return _productService.GetByQuery(query);
+            _logger.Info($"Getting product by id: {productId}");
+
+            var product = _productService.GetProductRichModel(productId);
+            return product;
         }
     }
 }
