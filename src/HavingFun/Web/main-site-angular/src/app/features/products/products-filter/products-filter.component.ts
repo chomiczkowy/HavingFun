@@ -24,23 +24,9 @@ export class ProductsFilterComponent implements OnInit {
 
   ngOnInit() {
     this.productService.getProductCategoriesForTree().subscribe(
-      categories => {
-        for(var i=0;i<categories.length;i++){
-          this.setUpIcons(categories[i]);
-        }
+      categories => {       
         this.productCategories = categories;
       });
-}
-
-setUpIcons(category:ProductCategoryTreeItem){
-  category.collapsedIcon="fa fa-folder";
-  category.expandedIcon="fa fa-folder-open";
-
-  if(category.children){
-    for(var i=0;i<category.children.length;i++){
-      this.setUpIcons(category.children[i]);
-    }
-  }
 }
 
 nodeSelect(event) {

@@ -1,2 +1,3 @@
 logstash.bat -f logstash.conf
 elasticsearch.bat
+kibana.bat

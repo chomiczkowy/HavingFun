@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HavingFun.Common;
 using HavingFun.Common.Models;
 using HavingFun.Common.Models.Products;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace HavingFun.API.Shop.Controllers
 {
@@ -12,10 +14,19 @@ namespace HavingFun.API.Shop.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
+        private LoggerHelper _logger;
+
+        public ProductController(LoggerHelper logger)
+        {
+            _logger = logger;
+        }
+
         // GET api/values
         [HttpGet]
         public ActionResult<PageableQueryResult<ProductQueryItem>> Get([FromQuery]ProductListSearchQuery query)
         {
+            _logger.Info($"Getting product list with query: {Environment.NewLine}{JsonConvert.SerializeObject(query, Formatting.Indented)}");
+
             const int itemsPerCategory = 10;
             string[] words = new[] { "Office thing", "SSD Hard drive", "GPU Nvidia", "Intel CPU", "AMD CPU" };
             var items = new List<ProductQueryItem>();

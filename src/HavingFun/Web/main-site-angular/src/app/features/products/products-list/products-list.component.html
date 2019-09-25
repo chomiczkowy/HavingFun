@@ -1,8 +1,8 @@
-<div class="ui-g-3">
+<div class="ui-g-2">
     <app-products-filter [query]="query"
                           (queryChanged)="onQueryChanged($event)"></app-products-filter>
 </div>
-<div class="ui-g-9">
+<div class="ui-g-10">
     <app-products-grid [results]="results"
                         [query]="query"
                         (queryChanged)="onGridQueryChanged($event)"></app-products-grid>

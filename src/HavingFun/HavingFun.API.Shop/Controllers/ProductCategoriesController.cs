@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HavingFun.Common;
 using HavingFun.Common.Models.ProductCategories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,9 +12,17 @@ namespace HavingFun.API.Shop.Controllers
     [ApiController]
     public class ProductCategoriesController : ControllerBase
     {
+        private LoggerHelper _logger;
+
+        public ProductCategoriesController(LoggerHelper logger)
+        {
+            _logger = logger;
+        }
+
         [HttpGet("tree")]
         public ProductCategoryTreeItem[] GetAllForTree()
         {
+            _logger.Info("Getting product categories tree");
             return new ProductCategoryTreeItem[]
             {
                 new ProductCategoryTreeItem(){Data=1, Label="Office stuff"},
