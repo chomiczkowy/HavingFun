@@ -4,10 +4,10 @@
 
 export const environment = {
   production: false,
-  adminApiUrl:'https://localhost:44310/api/',
-  loginApiUrl:'https://localhost:44318/api/',
-  shopApiUrl:'https://localhost:44341/api/',
-  userManagementApiUrl:'https://localhost:44327/api/'
+  adminApiUrl:'http://localhost:5001/api/',
+  loginApiUrl:'http://localhost:5002/api/',
+  shopApiUrl:'http://localhost:5004/api/',
+  userManagementApiUrl:'http://localhost:5003/api/'
 
 };
 

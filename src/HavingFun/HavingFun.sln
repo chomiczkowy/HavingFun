@@ -23,13 +23,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HavingFun.API.Main", "API\H
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HavingFun.API.Common", "HavingFun.API.Common\HavingFun.API.Common.csproj", "{607FF4CF-1A28-4296-9A9E-FA5A988AE87A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HavingFun.API.Admin", "HavingFun.API.Admin\HavingFun.API.Admin.csproj", "{B5E72118-E092-48C4-B0E0-C05BE0B17AF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HavingFun.API.Admin", "HavingFun.API.Admin\HavingFun.API.Admin.csproj", "{B5E72118-E092-48C4-B0E0-C05BE0B17AF2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HavingFun.API.Login", "HavingFun.API.Login\HavingFun.API.Login.csproj", "{DCAC606A-5108-48A6-8ECA-43FCC4F87C89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HavingFun.API.Login", "HavingFun.API.Login\HavingFun.API.Login.csproj", "{DCAC606A-5108-48A6-8ECA-43FCC4F87C89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HavingFun.API.Shop", "HavingFun.API.Shop\HavingFun.API.Shop.csproj", "{6443FEC0-6928-49F8-ADBB-47B3BB79E4FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HavingFun.API.Shop", "HavingFun.API.Shop\HavingFun.API.Shop.csproj", "{6443FEC0-6928-49F8-ADBB-47B3BB79E4FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HavingFun.Tests.UnitTests", "HavingFun.Tests.UnitTests\HavingFun.Tests.UnitTests.csproj", "{EBFC307C-0BCC-4E20-AF3F-1C18FE2A59B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HavingFun.Tests.UnitTests", "HavingFun.Tests.UnitTests\HavingFun.Tests.UnitTests.csproj", "{EBFC307C-0BCC-4E20-AF3F-1C18FE2A59B8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{2FF9821D-BADC-42A0-9789-A96A95819867}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HavingFun.Apps.JobScheduler", "Apps\HavingFun.Apps.JobScheduler\HavingFun.Apps.JobScheduler.csproj", "{C2B80350-DB2D-4A1B-B3B0-A014732C835D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +85,10 @@ Global
 		{EBFC307C-0BCC-4E20-AF3F-1C18FE2A59B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBFC307C-0BCC-4E20-AF3F-1C18FE2A59B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBFC307C-0BCC-4E20-AF3F-1C18FE2A59B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2B80350-DB2D-4A1B-B3B0-A014732C835D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2B80350-DB2D-4A1B-B3B0-A014732C835D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2B80350-DB2D-4A1B-B3B0-A014732C835D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2B80350-DB2D-4A1B-B3B0-A014732C835D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -97,6 +105,7 @@ Global
 		{DCAC606A-5108-48A6-8ECA-43FCC4F87C89} = {140BBD44-29FD-4369-A860-E53EF771111A}
 		{6443FEC0-6928-49F8-ADBB-47B3BB79E4FE} = {140BBD44-29FD-4369-A860-E53EF771111A}
 		{EBFC307C-0BCC-4E20-AF3F-1C18FE2A59B8} = {458DEB7E-8259-4D1E-8C8F-C76C33455691}
+		{C2B80350-DB2D-4A1B-B3B0-A014732C835D} = {2FF9821D-BADC-42A0-9789-A96A95819867}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BB6E2E1F-AD94-4262-980A-01B816CCAB6E}
