@@ -1,0 +1,42 @@
+{
+  "GlobalConfiguration": {
+    "RequestIdKey": "OcRequestId",
+    "AdministrationPath": "/administration",
+    "UseServiceDiscovery": true,
+    "ServiceDiscoveryProvider": {
+      "Type": "Eureka",
+      "Host": "localhost",
+      "Port": "8761"
+    }
+  },
+  "ReRoutes": [
+    {
+      "DownstreamPathTemplate": "/api/Products/{everything}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/Products/{everything}",
+      "ServiceName": "ProductService",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Product/{everything}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/Product/{everything}",
+      "ServiceName": "ProductService",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/ProductCategories/{everything}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/ProductCategories/{everything}",
+      "ServiceName": "ProductService",
+      "UpstreamHttpMethod": [ "Get" ]
+    }
+    {
+      "DownstreamPathTemplate": "/api/login",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/login",
+      "ServiceName": "LoginService",
+      "UpstreamHttpMethod": [ "Post" ]
+    }
+  ]
+}
