@@ -9,6 +9,8 @@ using HavingFun.API.Common;
 using HavingFun.API.Main.Configuration;
 using HavingFun.Common;
 using HavingFun.Common.Interfaces.BLL;
+using HavingFun.Common.Messages;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,6 +24,8 @@ using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using NLog.Web;
 using Swashbuckle.AspNetCore.Swagger;
+using MassTransit;
+using HavingFun.API.Main.MessageConsumers;
 
 namespace HavingFun.API.Main
 {
@@ -48,6 +52,7 @@ namespace HavingFun.API.Main
             SetUpJWT(services, customAppSettingsSection);
             SetUpSwagger(services);
             SetUpApiVersioning(services);
+            SetUpRabbitMq(services, customAppSettingsSection);
 
             IdentityModelEventSource.ShowPII = true;
 
@@ -104,6 +109,44 @@ namespace HavingFun.API.Main
                     }
                 });
                 c.DescribeAllEnumsAsStrings();
+            });
+        }
+
+        private static void SetUpRabbitMq(IServiceCollection services, MainApiSettings appSettings)
+        {
+            var rabbitServerUri = new Uri(appSettings.RabbitMq.HostUrl);
+
+            //EndpointConvention.Map<UserCreatedMessage>(new Uri(rabbitServerUri, "/user/created"));
+            services.AddTransient<UserCreatedConsumer>();
+
+            services.AddMassTransit((cfg) =>
+            {
+                cfg.AddBus(isp =>
+                {
+                    var bus= Bus.Factory.CreateUsingRabbitMq(busCfg =>
+                    {
+                        busCfg.Host(new Uri(appSettings.RabbitMq.HostUrl), host =>
+                        {
+                            host.Username(appSettings.RabbitMq.Username);
+                            host.Password(appSettings.RabbitMq.Password);
+                        });
+
+                        //busCfg.Message<UserCreatedMessage>(x =>
+                        //{
+
+                        //});
+
+                        busCfg.ReceiveEndpoint("user_created", e =>
+                        {
+                            e.Consumer<UserCreatedConsumer>(isp);
+                        });
+
+                       
+                    });
+
+                    bus.Start();
+                    return bus;
+                });
             });
         }
 

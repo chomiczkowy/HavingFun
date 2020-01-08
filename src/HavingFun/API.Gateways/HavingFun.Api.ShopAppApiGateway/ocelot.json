@@ -30,7 +30,7 @@
       "UpstreamPathTemplate": "/ProductCategories/{everything}",
       "ServiceName": "ProductService",
       "UpstreamHttpMethod": [ "Get" ]
-    }
+    },
     {
       "DownstreamPathTemplate": "/api/login",
       "DownstreamScheme": "http",

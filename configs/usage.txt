@@ -6,3 +6,4 @@ kibana.bat
 
 RabbitMq:
 http://localhost:15672/ - panel
+guest//guest

@@ -8,7 +8,7 @@ namespace HavingFun.EFDAL.Context
     public class MainDBContext : DbContext
     {
         public MainDBContext() : base(new DbContextOptionsBuilder<MainDBContext>()
-            .UseSqlServer(@"Server=(LocalDB)\MSSQLLocalDB; Integrated Security=true;").Options)
+            .UseSqlServer(@"Server=(localdb)\.\IIS_DB; Integrated Security=true;").Options)
         {
 
         }

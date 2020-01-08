@@ -1,7 +1,9 @@
 ﻿using HavingFun.Common.Interfaces.BLL;
+using HavingFun.Common.Messages;
 using HavingFun.Common.Models;
 using HavingFun.DapperDAL;
 using HavingFun.EFDAL;
+using MassTransit;
 using System;
 using System.Linq;
 
@@ -12,13 +14,15 @@ namespace HavingFun.BLL
         private CommandRepositoriesContainer _cmdContainer;
         private QueryRepositoriesContainer _queryContainer;
         private IPasswordHasher _passwordHasher;
+        private IBus _bus;
 
         public UserService(CommandRepositoriesContainer cmdContainer, QueryRepositoriesContainer queryContainer,
-            IPasswordHasher passwordHasher)
+            IPasswordHasher passwordHasher, IBus bus)
         {
             _cmdContainer = cmdContainer;
             _queryContainer = queryContainer;
             _passwordHasher = passwordHasher;
+            _bus = bus;
         }
 
         public UserModel Authenticate(Command<UserLoginModel> cmd)
@@ -50,7 +54,14 @@ namespace HavingFun.BLL
         public int? Create(Command<EditUserModel> cmd)
         {
             var userAggregate = _cmdContainer.UserCommandRepository.GetForAdd();
-            return userAggregate.AddNew(cmd.Data, _passwordHasher);
+            var createdUserId= userAggregate.AddNew(cmd.Data, _passwordHasher);
+            _bus.Publish(new UserCreatedMessage()
+            {
+                UserId = createdUserId,
+                CreatedDate = DateTime.Now
+            });
+
+            return createdUserId;
         }
 
         public UserModel GetById(Query<int> query)

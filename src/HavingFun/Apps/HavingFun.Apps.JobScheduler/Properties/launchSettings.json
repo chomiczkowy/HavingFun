@@ -31,7 +31,7 @@
       "commandName": "IIS",
       "workingDirectory": "D:\\Projekty\\Zabawa\\HavingFun\\src\\HavingFun\\Apps\\HavingFun.Apps.JobScheduler",
       "launchBrowser": true,
-      "launchUrl": "swagger",
+      "launchUrl": "hangfire",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
