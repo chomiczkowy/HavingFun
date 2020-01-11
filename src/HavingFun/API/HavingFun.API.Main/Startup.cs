@@ -25,7 +25,6 @@ using Microsoft.IdentityModel.Tokens;
 using NLog.Web;
 using Swashbuckle.AspNetCore.Swagger;
 using MassTransit;
-using HavingFun.API.Main.MessageConsumers;
 
 namespace HavingFun.API.Main
 {
@@ -116,9 +115,6 @@ namespace HavingFun.API.Main
         {
             var rabbitServerUri = new Uri(appSettings.RabbitMq.HostUrl);
 
-            //EndpointConvention.Map<UserCreatedMessage>(new Uri(rabbitServerUri, "/user/created"));
-            services.AddTransient<UserCreatedConsumer>();
-
             services.AddMassTransit((cfg) =>
             {
                 cfg.AddBus(isp =>
@@ -134,14 +130,7 @@ namespace HavingFun.API.Main
                         //busCfg.Message<UserCreatedMessage>(x =>
                         //{
 
-                        //});
-
-                        busCfg.ReceiveEndpoint("user_created", e =>
-                        {
-                            e.Consumer<UserCreatedConsumer>(isp);
-                        });
-
-                       
+                        //});                    
                     });
 
                     bus.Start();

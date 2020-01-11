@@ -20,11 +20,11 @@ namespace HavingFun.API.Main.MessageConsumers
 
         public Task Consume(ConsumeContext<UserCreatedMessage> context)
         {
-            _logger.Info("UserCreatedMessage consume start");
+            _logger.Info($"UserCreatedMessage consume start UserId: {context.Message.UserId}");
 
             return Task.Delay(100).ContinueWith((t) => 
             { 
-                _logger.Info("UserCreatedMessage consume end"); 
+                _logger.Info($"UserCreatedMessage consume end UserId: {context.Message.UserId}"); 
             });
         }
     }
